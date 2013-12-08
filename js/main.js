@@ -6,12 +6,12 @@ require([
     ], function (log, canvas, Particles, animation) {
     log("Ready");
 
-    var particles = new Particles(20);
+    var particles = new Particles(20, canvas.ctx);
 
     animation.add(
         canvas.clear,
-        particles.draw.bind(particles, canvas.ctx),
-        particles.randomise.bind(particles)
+        particles.draw.bind(particles),
+        particles.update.bind(particles)
     );
 
     animation.start();
@@ -19,4 +19,6 @@ require([
     document.body.onclick = function (event) {
         animation.toggle();
     };
+
+    window.particles = particles;
 });
