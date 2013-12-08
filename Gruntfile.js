@@ -1,14 +1,28 @@
+/* jshint
+  node:true
+*/
+
 module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
     jshint: {
-      jshintrc: ".jshintrc",
       files: [
         "js/**/*.js",
         "Gruntfile.js"
-      ]
+      ],
+      options: {
+        "curly": true,
+        "eqnull": true,
+        "eqeqeq": true,
+        "undef": true,
+        "browser": true,
+        "globals": {
+          "require": true,
+          "define": true
+        }
+      }
     },
 
     watch: {
