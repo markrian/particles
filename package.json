@@ -1,0 +1,14 @@
+{
+  "name": "particles",
+  "version": "0.0.0",
+  "description": "Simple particle system",
+  "author": "Mark Florian <markrian@gmail.com>",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "grunt-cli": "~0.1.11",
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "bower": "~1.2.8"
+  }
+}
