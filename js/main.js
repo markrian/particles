@@ -1,6 +1,11 @@
-require(["log", "ctx"], function (log, ctx) {
+require([
+    "log",
+    "ctx",
+    "particles"
+    ], function (log, ctx, Particles) {
     log("Ready");
 
-    ctx.fillStyle = "rgb(200,0,0)";
-    ctx.fillRect(10, 10, 55, 50);
+    var particles = new Particles(20);
+
+    particles.draw(ctx);
 });
