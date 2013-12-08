@@ -11,7 +11,7 @@ require([
     animation.add(
         canvas.clear,
         particles.draw.bind(particles, canvas.ctx),
-        particles.refresh.bind(particles)
+        particles.randomise.bind(particles)
     );
 
     animation.start();
