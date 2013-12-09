@@ -3,7 +3,7 @@ define([
     "random"
     ], function (Particle, random) {
 
-    function Particles(number, ctx) {
+    function Particles(number, speed, ctx) {
         this.particles = [];
 
         for (var i = 0; i < number; i++) {
@@ -11,8 +11,8 @@ define([
                 ctx,
                 random.between(0, ctx.canvas.width),
                 random.between(0, ctx.canvas.height),
-                random.between(-50, 50),
-                random.between(-50, 50)
+                random.between(-speed, speed),
+                random.between(-speed, speed)
             );
             this.add(particle);
         }

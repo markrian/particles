@@ -6,7 +6,7 @@ require([
     ], function (log, canvas, Particles, animation) {
     log("Ready");
 
-    var particles = new Particles(200, canvas.ctx);
+    var particles = new Particles(200, 300, canvas.ctx);
 
     animation.add(
         canvas.clear,

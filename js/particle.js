@@ -7,9 +7,7 @@ define(["random"], function (random) {
         this.vy = vy;
         this.timestamp = 0;
 
-        this.red = this._toColour(this.speed());
-        this.size = this.red / 10;
-        this.fillStyle = "rgb(" + this.red + ",0,0)";
+        this._updateProps();
     }
 
     Particle.prototype.draw = function draw() {
@@ -38,21 +36,26 @@ define(["random"], function (random) {
     };
 
     Particle.prototype.bounce = function bounce() {
+        var e = 0.8;
         if (this.x - this.size < 0) {
             this.x = this.size;
-            this.vx = -this.vx;
+            this.vx = -this.vx*e;
+            this._updateProps();
         }
         if (this.x + this.size > this.ctx.canvas.width) {
             this.x = this.ctx.canvas.width - this.size;
-            this.vx = -this.vx;
+            this.vx = -this.vx*e;
+            this._updateProps();
         }
         if (this.y - this.size < 0) {
             this.y = this.size;
-            this.vy = -this.vy;
+            this.vy = -this.vy*e;
+            this._updateProps();
         }
         if (this.y + this.size > this.ctx.canvas.height) {
             this.y = this.ctx.canvas.height - this.size;
-            this.vy = -this.vy;
+            this.vy = -this.vy*e;
+            this._updateProps();
         }
     };
 
@@ -70,6 +73,12 @@ define(["random"], function (random) {
         }
 
         return Math.floor(h);
+    };
+
+    Particle.prototype._updateProps = function _updateProps() {
+        this.red = this._toColour(this.speed());
+        this.size = this.red / 10;
+        this.fillStyle = "rgb(" + this.red + ",0,0)";
     };
 
     return Particle;
