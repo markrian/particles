@@ -6,11 +6,15 @@ define(["random"], function (random) {
         this.vx = vx;
         this.vy = vy;
         this.timestamp = 0;
+
+        this.red = this._toColour(this.speed());
+        this.size = this.red / 10;
+        this.fillStyle = "rgb(" + this.red + ",0,0)";
     }
 
     Particle.prototype.draw = function draw() {
-        this.ctx.fillStyle = "rgb(0,0,0)";
-        this.ctx.fillRect(this.x, this.y, 5, 5);
+        this.ctx.fillStyle = this.fillStyle;
+        this.ctx.fillRect(this.x, this.y, this.size, this.size);
     };
 
     Particle.prototype.update = function update(timestamp) {
@@ -22,6 +26,10 @@ define(["random"], function (random) {
         this.x += this.vx * dt / 1000;
         this.y += this.vy * dt / 1000;
         this.timestamp = timestamp;
+    };
+
+    Particle.prototype.speed = function speed() {
+        return Math.sqrt(this.vx*this.vx + this.vy*this.vy);
     };
 
     Particle.prototype.randomise = function randomise() {
@@ -36,6 +44,22 @@ define(["random"], function (random) {
             this.y < 0 ||
             this.y > this.ctx.canvas.height
         );
+    };
+
+    Particle.prototype._toColour = function _toColour(s) {
+        var H = 255;
+        var V = 70.7;
+        var a = H / (V*V);
+
+        var h = a*s*s;
+
+        if (h > H) {
+            h = H;
+        } else if (h < 0) {
+            h = 0;
+        }
+
+        return Math.floor(h);
     };
 
     return Particle;

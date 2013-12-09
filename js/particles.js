@@ -11,8 +11,8 @@ define([
                 ctx,
                 random.between(0, ctx.canvas.width),
                 random.between(0, ctx.canvas.height),
-                random.between(-20, 20),
-                random.between(-20, 20)
+                random.between(-50, 50),
+                random.between(-50, 50)
             );
             this.add(particle);
         }
