@@ -19,6 +19,4 @@ require([
     document.body.onclick = function (event) {
         animation.toggle();
     };
-
-    window.particles = particles;
 });
