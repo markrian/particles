@@ -29,7 +29,7 @@ define([
         }
     };
 
-    Particles.prototype.update = function (timestamp) {
+    Particles.prototype.update = function update(timestamp) {
         var number = this.particles.length;
         for (var i = 0; i < number; i++) {
             this.particles[i].update(timestamp);
