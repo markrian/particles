@@ -20,14 +20,12 @@ define(["random"], function (random) {
     };
 
     Particle.prototype.update = function update(timestamp) {
-        if (this.isOffscreen()) {
-            return this.randomise();
-        }
-
         var dt = timestamp - this.timestamp;
         this.x += this.vx * dt / 1000;
         this.y += this.vy * dt / 1000;
         this.timestamp = timestamp;
+
+        this.bounce();
     };
 
     Particle.prototype.speed = function speed() {
@@ -39,13 +37,23 @@ define(["random"], function (random) {
         this.y = random.between(0, this.ctx.canvas.height);
     };
 
-    Particle.prototype.isOffscreen = function isOffscreen() {
-        return (
-            this.x + this.size < 0 ||
-            this.x - this.size > this.ctx.canvas.width ||
-            this.y + this.size < 0 ||
-            this.y - this.size > this.ctx.canvas.height
-        );
+    Particle.prototype.bounce = function bounce() {
+        if (this.x - this.size < 0) {
+            this.x = this.size;
+            this.vx = -this.vx;
+        }
+        if (this.x + this.size > this.ctx.canvas.width) {
+            this.x = this.ctx.canvas.width - this.size;
+            this.vx = -this.vx;
+        }
+        if (this.y - this.size < 0) {
+            this.y = this.size;
+            this.vy = -this.vy;
+        }
+        if (this.y + this.size > this.ctx.canvas.height) {
+            this.y = this.ctx.canvas.height - this.size;
+            this.vy = -this.vy;
+        }
     };
 
     Particle.prototype._toColour = function _toColour(s) {
