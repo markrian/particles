@@ -13,8 +13,10 @@ define(["random"], function (random) {
     }
 
     Particle.prototype.draw = function draw() {
+        this.ctx.beginPath();
         this.ctx.fillStyle = this.fillStyle;
-        this.ctx.fillRect(this.x, this.y, this.size, this.size);
+        this.ctx.arc(this.x, this.y, this.size, 0, Math.PI*2, true);
+        this.ctx.fill();
     };
 
     Particle.prototype.update = function update(timestamp) {
@@ -39,10 +41,10 @@ define(["random"], function (random) {
 
     Particle.prototype.isOffscreen = function isOffscreen() {
         return (
-            this.x < 0 ||
-            this.x > this.ctx.canvas.width ||
-            this.y < 0 ||
-            this.y > this.ctx.canvas.height
+            this.x + this.size < 0 ||
+            this.x - this.size > this.ctx.canvas.width ||
+            this.y + this.size < 0 ||
+            this.y - this.size > this.ctx.canvas.height
         );
     };
 
