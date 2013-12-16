@@ -3,9 +3,28 @@ require([
     "canvas",
     "particles",
     "animation",
+    "forces",
+    "radialforce",
+    "constantforce",
     "emitter"
-    ], function (log, canvas, Particles, animation, Emitter) {
+    ], function (log, canvas, Particles, animation, forces, RadialForce, ConstantForce, Emitter) {
     log("Ready");
+
+    forces.add([
+        new RadialForce(
+            canvas.ctx,
+            canvas.ctx.canvas.width * 3 / 4,
+            canvas.ctx.canvas.height / 2,
+            100
+        ),
+        new RadialForce(
+            canvas.ctx,
+            canvas.ctx.canvas.width / 4,
+            canvas.ctx.canvas.height / 2,
+            100
+        )
+        // , new ConstantForce(0, 2)
+    ]);
 
     var emitter = new Emitter(
         canvas.ctx,

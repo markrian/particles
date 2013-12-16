@@ -1,4 +1,4 @@
-define(["random", "extend"], function (random, extend) {
+define(["random", "extend", "forces"], function (random, extend, forces) {
     function Particle(ctx, x, y, vx, vy) {
         this.ctx = ctx;
         this.x = x;
@@ -6,6 +6,7 @@ define(["random", "extend"], function (random, extend) {
         this.vx = vx;
         this.vy = vy;
         this.size = 1;
+        this.mass = this.size * this.size;
         this.timestamp = 0;
 
         this._preDraw();
@@ -25,6 +26,7 @@ define(["random", "extend"], function (random, extend) {
 
     Particle.prototype.update = function update(timestamp) {
         var dt = timestamp - this.timestamp;
+        forces.resolve(this, dt);
         this.x += this.vx * dt / 1000;
         this.y += this.vy * dt / 1000;
         this.timestamp = timestamp;
@@ -46,7 +48,7 @@ define(["random", "extend"], function (random, extend) {
     };
 
     Particle.prototype.bounce = function bounce() {
-        var e = 0.8;
+        var e = 1;
         if (this.x - this.size < 0) {
             this.x = this.size;
             this.vx = -this.vx*e;

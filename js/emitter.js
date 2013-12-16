@@ -84,10 +84,10 @@ define(["particle", "random"], function (Particle, random) {
 
         var toEmit = Math.floor(this.frequency * dt / 1000);
         for (var i = 0; i < toEmit; i++) {
-            console.log("Emitting " + (i+1) + " of " + toEmit + " particles...");
-            console.log(this.frequency, dt);
+            // console.log("Emitting " + (i+1) + " of " + toEmit + " particles...");
+            // console.log(this.frequency, dt);
             this._emit(timestamp);
-            console.log("pool: ", this.pool.length, "particles:", this.particles.length);
+            // console.log("pool: ", this.pool.length, "particles:", this.particles.length);
         }
     };
 
