@@ -1,6 +1,15 @@
-define(["particle"], function (Particle) {
+define(["particle", "random"], function (Particle, random) {
 
-    function Emitter(x, y, frequency, number, speed, ctx) {
+    function Emitter(
+            ctx,
+            x,
+            y,
+            frequency,
+            number,
+            speed,
+            startAngle,
+            endAngle
+            ) {
         this.x = x;
         this.y = y;
         this.frequency = frequency;
@@ -9,6 +18,8 @@ define(["particle"], function (Particle) {
         this.particles = [];
         this.ctx = ctx;
         this.number = number;
+        this.startAngle = startAngle;
+        this.endAngle = endAngle;
         this._initParticles(number);
     }
 
@@ -33,12 +44,13 @@ define(["particle"], function (Particle) {
 
     Emitter.prototype._emit = function (timestamp) {
         var particle = this._nextParticle();
+        var angle = random.betweenFloat(this.startAngle, this.endAngle);
 
         particle.setProps({
             x: this.x,
             y: this.y,
-            vx: this.speed,
-            vy: 0,
+            vx: this.speed * Math.cos(angle),
+            vy: this.speed * Math.sin(angle),
 
             // Hack? Make sure it starts in the right position.
             timestamp: timestamp
@@ -82,13 +94,7 @@ define(["particle"], function (Particle) {
     Emitter.prototype._initParticles = function _initParticles(number) {
         for (var i = 0; i < number; i++) {
             this.pool.push(
-                new Particle(
-                    this.ctx,
-                    this.x,
-                    this.y,
-                    this.speed,
-                    0
-                )
+                new Particle(this.ctx, 0, 0, 0, 0)
             );
         }
     };

@@ -8,12 +8,14 @@ require([
     log("Ready");
 
     var emitter = new Emitter(
+        canvas.ctx,
         canvas.ctx.canvas.width / 2,
         canvas.ctx.canvas.height / 2,
         4, // frequency
         20, // particle pool size
         20, // particle speed
-        canvas.ctx
+        -0.5, // start angle
+        0.5 // end angle
     );
 
     animation.add(

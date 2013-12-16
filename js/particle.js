@@ -24,6 +24,8 @@ define(["random", "extend"], function (random, extend) {
         this.timestamp = timestamp;
 
         this.bounce();
+
+        this._updateProps();
     };
 
     Particle.prototype.speed = function speed() {
@@ -44,22 +46,18 @@ define(["random", "extend"], function (random, extend) {
         if (this.x - this.size < 0) {
             this.x = this.size;
             this.vx = -this.vx*e;
-            this._updateProps();
         }
         if (this.x + this.size > this.ctx.canvas.width) {
             this.x = this.ctx.canvas.width - this.size;
             this.vx = -this.vx*e;
-            this._updateProps();
         }
         if (this.y - this.size < 0) {
             this.y = this.size;
             this.vy = -this.vy*e;
-            this._updateProps();
         }
         if (this.y + this.size > this.ctx.canvas.height) {
             this.y = this.ctx.canvas.height - this.size;
             this.vy = -this.vy*e;
-            this._updateProps();
         }
     };
 
