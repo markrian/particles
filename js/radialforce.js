@@ -4,6 +4,8 @@ define(function () {
         this.x = x;
         this.y = y;
         this.strength = strength;
+
+        this._preDraw();
     }
 
     RadialForce.prototype.resolve = function (particle, dt) {
@@ -18,6 +20,29 @@ define(function () {
         var fy = this.strength * direction[1] / distance_squared;
         particle.vx += fx;
         particle.vy += fy;
+    };
+
+    RadialForce.prototype.draw = function () {
+        this.ctx.drawImage(this._canvas, this.x - this.strength, this.y - this.strength);
+    };
+
+    RadialForce.prototype._preDraw = function () {
+        var c = this._canvas = document.createElement("canvas");
+        c.width = c.height = this.strength*2;
+        var ctx = c.getContext("2d");
+        var radialGradient = ctx.createRadialGradient(
+            this.strength,
+            this.strength,
+            0,
+            this.strength,
+            this.strength,
+            this.strength
+        );
+        var color = "0,0,127";
+        radialGradient.addColorStop(0, "rgba("+color+",1)");
+        radialGradient.addColorStop(1, "rgba("+color+",0)");
+        ctx.fillStyle = radialGradient;
+        ctx.fillRect(0, 0, this.strength*2, this.strength*2);
     };
 
     return RadialForce;

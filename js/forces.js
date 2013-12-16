@@ -5,6 +5,11 @@ define({
             this._forces.push(forces[i]);
         }
     },
+    draw: function draw() {
+        for (var i = 0; i < this._forces.length; i++) {
+            this._forces[i].draw();
+        }
+    },
     resolve: function resolve(particle, dt) {
         // F = m*a;
         // a = F / m;

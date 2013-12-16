@@ -40,6 +40,7 @@ require([
     animation.add(
         canvas.clear,
         emitter.update.bind(emitter),
+        forces.draw.bind(forces),
         emitter.draw.bind(emitter)
     );
 
