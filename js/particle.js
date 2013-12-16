@@ -1,4 +1,4 @@
-define(["random"], function (random) {
+define(["random", "extend"], function (random, extend) {
     function Particle(ctx, x, y, vx, vy) {
         this.ctx = ctx;
         this.x = x;
@@ -33,6 +33,10 @@ define(["random"], function (random) {
     Particle.prototype.randomise = function randomise() {
         this.x = random.between(0, this.ctx.canvas.width);
         this.y = random.between(0, this.ctx.canvas.height);
+    };
+
+    Particle.prototype.reset = function (props) {
+        extend(this, props);
     };
 
     Particle.prototype.bounce = function bounce() {

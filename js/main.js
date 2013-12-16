@@ -10,7 +10,7 @@ require([
     var emitter = new Emitter(
         canvas.ctx.canvas.width / 2,
         canvas.ctx.canvas.height / 2,
-        20, // frequency
+        4, // frequency
         20, // particle pool size
         20, // particle speed
         canvas.ctx

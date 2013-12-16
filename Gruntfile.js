@@ -10,7 +10,7 @@ module.exports = function(grunt) {
     jshint: {
       files: [
         "js/**/*.js",
-        "Gruntfile.js"
+        "Gruntfile.js",
       ],
       options: {
         "curly": true,
@@ -20,17 +20,18 @@ module.exports = function(grunt) {
         "browser": true,
         "globals": {
           "require": true,
-          "define": true
+          "define": true,
+          "console": true,
         }
       }
     },
 
     watch: {
       files: [
-        "<%= jshint.files %>"
+        "<%= jshint.files %>",
       ],
       tasks: [
-        "jshint"
+        "jshint",
       ]
     }
   });
