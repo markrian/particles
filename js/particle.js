@@ -35,7 +35,7 @@ define(["random", "extend"], function (random, extend) {
         this.y = random.between(0, this.ctx.canvas.height);
     };
 
-    Particle.prototype.reset = function (props) {
+    Particle.prototype.setProps = function (props) {
         extend(this, props);
     };
 

@@ -8,6 +8,7 @@ define(["particle"], function (Particle) {
         this.pool = [];
         this.particles = [];
         this.ctx = ctx;
+        this.number = number;
         this._initParticles(number);
     }
 
@@ -31,13 +32,33 @@ define(["particle"], function (Particle) {
     };
 
     Emitter.prototype._emit = function (timestamp) {
-        var particle = this.pool.pop();
+        var particle = this._nextParticle();
 
-        // Hack? Make sure it starts in the right position.
-        particle.timestamp = timestamp;
+        particle.setProps({
+            x: this.x,
+            y: this.y,
+            vx: this.speed,
+            vy: 0,
 
-        this.particles.push(particle);
+            // Hack? Make sure it starts in the right position.
+            timestamp: timestamp
+        });
         this._lastEmission = timestamp;
+    };
+
+    Emitter.prototype._nextParticle = function () {
+        var particle;
+        this._current = this._current || 0;
+
+        if (this.pool.length) {
+            particle = this.pool.pop();
+            this.particles.push(particle);
+        } else {
+            particle = this.particles[this._current % this.number];
+            this._current++;
+        }
+
+        return particle;
     };
 
     Emitter.prototype.emit = function (timestamp) {
@@ -49,15 +70,12 @@ define(["particle"], function (Particle) {
             this._emit(timestamp);
         }
 
-        // Add particles from pool
         var toEmit = Math.floor(this.frequency * dt / 1000);
         for (var i = 0; i < toEmit; i++) {
-            if (this.pool.length) {
-                console.log("Emitting " + (i+1) + " of " + toEmit + " particles...");
-                console.log(this.frequency, dt);
-                this._emit(timestamp);
-                console.log("pool: ", this.pool.length, "particles:", this.particles.length);
-            }
+            console.log("Emitting " + (i+1) + " of " + toEmit + " particles...");
+            console.log(this.frequency, dt);
+            this._emit(timestamp);
+            console.log("pool: ", this.pool.length, "particles:", this.particles.length);
         }
     };
 
@@ -69,7 +87,6 @@ define(["particle"], function (Particle) {
                     this.x,
                     this.y,
                     this.speed,
-                    0,
                     0
                 )
             );
