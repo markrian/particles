@@ -30,8 +30,6 @@ define(["random", "extend"], function (random, extend) {
         this.timestamp = timestamp;
 
         this.bounce();
-
-        this._updateProps();
     };
 
     Particle.prototype.speed = function speed() {
@@ -65,28 +63,6 @@ define(["random", "extend"], function (random, extend) {
             this.y = this.ctx.canvas.height - this.size;
             this.vy = -this.vy*e;
         }
-    };
-
-    Particle.prototype._toColour = function _toColour(s) {
-        var H = 255;
-        var V = 70.7;
-        var a = H / (V*V);
-
-        var h = a*s*s;
-
-        if (h > H) {
-            h = H;
-        } else if (h < 0) {
-            h = 0;
-        }
-
-        return Math.floor(h);
-    };
-
-    Particle.prototype._updateProps = function _updateProps() {
-        this.red = this._toColour(this.speed());
-        this.size = this.red / 10;
-        this.fillStyle = "rgb(" + this.red + ",0,0)";
     };
 
     return Particle;
