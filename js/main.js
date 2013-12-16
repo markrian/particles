@@ -11,10 +11,15 @@ require([
         canvas.ctx.canvas.width / 2,
         canvas.ctx.canvas.height / 2,
         20, // frequency
-        20 // particle speed
+        20, // particle pool size
+        20, // particle speed
+        canvas.ctx
     );
 
     animation.add(
+        canvas.clear,
+        emitter.update.bind(emitter),
+        emitter.draw.bind(emitter)
     );
 
     animation.start();

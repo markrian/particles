@@ -22,18 +22,28 @@ define(["particle"], function (Particle) {
         this.timestamp = timestamp;
     };
 
+    Emitter.prototype.draw = function draw() {
+        var number = this.particles.length;
+        for (var i = 0; i < number; i++) {
+            this.particles[i].draw();
+        }
+    };
+
     Emitter.prototype._initParticles = function _initParticles(number) {
         for (var i = 0; i < number; i++) {
-            this.pool.push(
+            this.particles.push(
                 new Particle(
                     this.ctx,
                     this.x,
                     this.y,
                     this.speed,
-                    0
+                    0,
+                    Date.now()
                 )
             )
         }
     };
+
+    return Emitter;
 
 });
