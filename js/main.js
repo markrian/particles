@@ -11,9 +11,9 @@ require([
         canvas.ctx,
         canvas.ctx.canvas.width / 2,
         canvas.ctx.canvas.height / 2,
-        4, // frequency
-        20, // particle pool size
-        20, // particle speed
+        100, // frequency
+        1000, // particle pool size
+        100, // particle speed
         -0.5, // start angle
         0.5 // end angle
     );
