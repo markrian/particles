@@ -5,16 +5,22 @@ define(["random", "extend"], function (random, extend) {
         this.y = y;
         this.vx = vx;
         this.vy = vy;
+        this.size = 1;
         this.timestamp = 0;
 
-        this._updateProps();
+        this._preDraw();
     }
 
+    Particle.prototype._preDraw = function () {
+        var c = this._canvas = document.createElement("canvas");
+        c.width = c.height = this.size*2;
+        var ctx = c.getContext("2d");
+        ctx.fillStyle = "rgb(0,0,0)";
+        ctx.fillRect(0, 0, this.size*2, this.size*2);
+    };
+
     Particle.prototype.draw = function draw() {
-        this.ctx.beginPath();
-        this.ctx.fillStyle = this.fillStyle;
-        this.ctx.arc(this.x, this.y, this.size, 0, Math.PI*2, true);
-        this.ctx.fill();
+        this.ctx.drawImage(this._canvas, this.x - this.size, this.y - this.size);
     };
 
     Particle.prototype.update = function update(timestamp) {
