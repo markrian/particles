@@ -29,4 +29,12 @@ require([
     document.body.onclick = function (event) {
         animation.toggle();
     };
+
+    canvas.ctx.canvas.addEventListener("mousemove", function onMouseMove(event) {
+        var x = event.pageX - canvas.ctx.canvas.offsetLeft;
+        var y = event.pageY - canvas.ctx.canvas.offsetTop;
+
+        emitter.x = x;
+        emitter.y = y;
+    });
 });
