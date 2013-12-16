@@ -13,28 +13,28 @@ require([
     forces.add([
         new RadialForce(
             canvas.ctx,
-            canvas.ctx.canvas.width * 3 / 4,
+            canvas.ctx.canvas.width / 2 + 50,
             canvas.ctx.canvas.height / 2,
-            100
+            -10
         ),
         new RadialForce(
             canvas.ctx,
-            canvas.ctx.canvas.width / 4,
-            canvas.ctx.canvas.height / 2,
-            100
-        )
-        // , new ConstantForce(0, 2)
+            canvas.ctx.canvas.width / 2,
+            canvas.ctx.canvas.height / 2 + 50,
+            80
+        ),
+        new ConstantForce(0, 2)
     ]);
 
     var emitter = new Emitter(
         canvas.ctx,
         canvas.ctx.canvas.width / 2,
         canvas.ctx.canvas.height / 2,
-        100, // frequency
-        1000, // particle pool size
+        60, // frequency
+        2000, // particle pool size
         100, // particle speed
-        -0.5, // start angle
-        0.5 // end angle
+        -Math.PI * 3 / 4, // start angle
+        -Math.PI * 3 / 4 // end angle
     );
 
     animation.add(

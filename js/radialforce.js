@@ -3,7 +3,8 @@ define(function () {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
-        this.strength = strength;
+        this.direction = strength >= 0 ? 1 : -1;
+        this.strength = Math.abs(strength);
 
         this._preDraw();
     }
@@ -16,8 +17,12 @@ define(function () {
         var distance_squared = direction[0] * direction[0] + 
             direction[1] * direction[1];
 
-        var fx = this.strength * direction[0] / distance_squared;
-        var fy = this.strength * direction[1] / distance_squared;
+        if (this.direction < 0) {
+            distance_squared = Math.sqrt(distance_squared);
+        }
+
+        var fx = this.strength * this.direction * direction[0] / distance_squared;
+        var fy = this.strength * this.direction * direction[1] / distance_squared;
         particle.vx += fx;
         particle.vy += fy;
     };

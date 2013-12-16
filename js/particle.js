@@ -31,7 +31,7 @@ define(["random", "extend", "forces"], function (random, extend, forces) {
         this.y += this.vy * dt / 1000;
         this.timestamp = timestamp;
 
-        this.bounce();
+        // this.bounce();
     };
 
     Particle.prototype.speed = function speed() {

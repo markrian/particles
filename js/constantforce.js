@@ -9,5 +9,7 @@ define(function () {
         particle.vy += this.fy;
     };
 
+    ConstantForce.prototype.draw = function () {};
+
     return ConstantForce;
 });
