@@ -2,7 +2,7 @@ import state from './state.js';
 import { canvas } from './canvas.js';
 
 export default {
-    onresize() {
+    resize() {
         state.width = window.innerWidth;
         state.height = window.innerHeight;
 

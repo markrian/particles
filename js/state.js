@@ -8,4 +8,5 @@ export default {
         y: 0,
         down: false,
     },
+    paused: false,
 };

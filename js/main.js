@@ -69,13 +69,15 @@ function init() {
     bindEvents(window, mouseEvents);
     bindEvents(window, resizeEvents);
 
-    const world = new World(state);
+    resizeEvents.resize();
+
+    const world = new World(state, ctx);
     const dt = 1000 / 60;
 
     function loop() {
         requestAnimationFrame(loop);
         world.update(dt);
-        // world.draw();
+        world.draw();
     }
 
     loop();
