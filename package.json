@@ -3,12 +3,30 @@
   "version": "0.0.0",
   "description": "Simple particle system",
   "author": "Mark Florian <markrian@gmail.com>",
-  "license": "BSD-2-Clause",
+  "private": true,
+  "license": "ISC",
+  "scripts": {
+      "test": "xo --reporter=codeframe"
+  },
   "devDependencies": {
-    "grunt-cli": "~0.1.11",
-    "grunt": "~0.4.2",
-    "grunt-contrib-jshint": "~0.7.2",
-    "grunt-contrib-watch": "~0.5.3",
-    "bower": "~1.2.8"
+    "xo": "^0.21.0"
+  },
+  "xo": {
+    "rules": {
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ],
+      "eqeqeq": [
+        "error",
+        "smart"
+      ],
+      "no-eq-null": "off",
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ]
+    },
+    "space": 4
   }
 }
