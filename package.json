@@ -6,13 +6,15 @@
   "private": true,
   "license": "ISC",
   "scripts": {
-      "test": "xo --reporter=codeframe"
+    "test": "xo --reporter=codeframe"
   },
   "devDependencies": {
     "xo": "^0.21.0"
   },
   "xo": {
-    "envs": ["browser"],
+    "envs": [
+      "browser"
+    ],
     "rules": {
       "comma-dangle": [
         "error",
