@@ -1,16 +1,14 @@
-define({
+export default {
     _forces: [],
-    add: function add(forces) {
-        for (let i = 0; i < forces.length; i++) {
-            this._forces.push(forces[i]);
+    add(forces) {
+        this._forces.push(...forces);
+    },
+    draw() {
+        for (const force of this._forces) {
+            force.draw();
         }
     },
-    draw: function draw() {
-        for (let i = 0; i < this._forces.length; i++) {
-            this._forces[i].draw();
-        }
-    },
-    resolve: function resolve(particle, dt) {
+    resolve(particle, dt) {
         // F = m*a;
         // a = F / m;
         // dv / dt = F / m
@@ -18,8 +16,7 @@ define({
 
         // a.b = |a||b|cos(theta);
 
-        const count = this._forces.length;
-        for (let i = 0; i < count; i++) {
+        for (const force of this._forces) {
             // Var _r_ = [
             //     force.x - particle.x,
             //     force.y - particle.y
@@ -28,8 +25,7 @@ define({
             // var F = force.strength;
             // var Fx = F * _r_[0] / r_squared;
 
-            const force = this._forces[i];
             force.resolve(particle, dt);
         }
     },
-});
+}
