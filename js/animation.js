@@ -1,20 +1,20 @@
-define(function () {
-    var callbacks = [];
-    var id;
-    var isRunning = false;
+define(() => {
+    const callbacks = [];
+    let id;
+    let isRunning = false;
 
     function draw(timestamp) {
         id = window.requestAnimationFrame(draw);
-        var n = callbacks.length;
-        for (var i = 0; i < n; i++) {
+        const n = callbacks.length;
+        for (let i = 0; i < n; i++) {
             callbacks[i](timestamp);
         }
     }
 
     var animation = {
         add: function add() {
-            var n = arguments.length;
-            for (var i = 0; i < n; i++) {
+            const n = arguments.length;
+            for (let i = 0; i < n; i++) {
                 callbacks.push(arguments[i]);
             }
         },
@@ -32,7 +32,7 @@ define(function () {
             } else {
                 animation.start();
             }
-        }
+        },
     };
 
     return animation;

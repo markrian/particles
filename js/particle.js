@@ -1,4 +1,4 @@
-define(["random", "extend", "forces"], function (random, extend, forces) {
+define(['random', 'extend', 'forces'], (random, extend, forces) => {
     function Particle(ctx, x, y, vx, vy) {
         this.ctx = ctx;
         this.x = x;
@@ -13,11 +13,11 @@ define(["random", "extend", "forces"], function (random, extend, forces) {
     }
 
     Particle.prototype._preDraw = function () {
-        var c = this._canvas = document.createElement("canvas");
-        c.width = c.height = this.size*2;
-        var ctx = c.getContext("2d");
-        ctx.fillStyle = "rgb(0,0,0)";
-        ctx.fillRect(0, 0, this.size*2, this.size*2);
+        const c = this._canvas = document.createElement('canvas');
+        c.width = c.height = this.size * 2;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = 'rgb(0,0,0)';
+        ctx.fillRect(0, 0, this.size * 2, this.size * 2);
     };
 
     Particle.prototype.draw = function draw() {
@@ -25,17 +25,17 @@ define(["random", "extend", "forces"], function (random, extend, forces) {
     };
 
     Particle.prototype.update = function update(timestamp) {
-        var dt = timestamp - this.timestamp;
+        const dt = timestamp - this.timestamp;
         forces.resolve(this, dt);
         this.x += this.vx * dt / 1000;
         this.y += this.vy * dt / 1000;
         this.timestamp = timestamp;
 
-        // this.bounce();
+        // This.bounce();
     };
 
     Particle.prototype.speed = function speed() {
-        return Math.sqrt(this.vx*this.vx + this.vy*this.vy);
+        return Math.sqrt(this.vx * this.vx + this.vy * this.vy);
     };
 
     Particle.prototype.randomise = function randomise() {
@@ -48,22 +48,22 @@ define(["random", "extend", "forces"], function (random, extend, forces) {
     };
 
     Particle.prototype.bounce = function bounce() {
-        var e = 1;
+        const e = 1;
         if (this.x - this.size < 0) {
             this.x = this.size;
-            this.vx = -this.vx*e;
+            this.vx = -this.vx * e;
         }
         if (this.x + this.size > this.ctx.canvas.width) {
             this.x = this.ctx.canvas.width - this.size;
-            this.vx = -this.vx*e;
+            this.vx = -this.vx * e;
         }
         if (this.y - this.size < 0) {
             this.y = this.size;
-            this.vy = -this.vy*e;
+            this.vy = -this.vy * e;
         }
         if (this.y + this.size > this.ctx.canvas.height) {
             this.y = this.ctx.canvas.height - this.size;
-            this.vy = -this.vy*e;
+            this.vy = -this.vy * e;
         }
     };
 

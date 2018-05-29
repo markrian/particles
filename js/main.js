@@ -7,7 +7,7 @@ import RadialForce from './radialforce.js';
 import ConstantForce from './constantforce.js';
 import Emitter from './emitter.js';
 
-log("Ready");
+log('Ready');
 
 forces.add([
     new RadialForce(
@@ -22,18 +22,18 @@ forces.add([
         canvas.ctx.canvas.height / 2 + 50,
         80
     ),
-    new ConstantForce(0, 2)
+    new ConstantForce(0, 2),
 ]);
 
-var emitter = new Emitter(
+const emitter = new Emitter(
     canvas.ctx,
     canvas.ctx.canvas.width / 2,
     canvas.ctx.canvas.height / 2,
-    60, // frequency
-    2000, // particle pool size
-    100, // particle speed
-    -Math.PI * 3 / 4, // start angle
-    -Math.PI * 3 / 4 // end angle
+    60, // Frequency
+    2000, // Particle pool size
+    100, // Particle speed
+    -Math.PI * 3 / 4, // Start angle
+    -Math.PI * 3 / 4 // End angle
 );
 
 animation.add(
@@ -45,13 +45,13 @@ animation.add(
 
 animation.start();
 
-document.body.onclick = function (event) {
+document.body.addEventListener('click', event => {
     animation.toggle();
-};
+});
 
-canvas.ctx.canvas.addEventListener("mousemove", function onMouseMove(event) {
-    var x = event.pageX - canvas.ctx.canvas.offsetLeft;
-    var y = event.pageY - canvas.ctx.canvas.offsetTop;
+canvas.ctx.canvas.addEventListener('mousemove', function onMouseMove(event) {
+    const x = event.pageX - canvas.ctx.canvas.offsetLeft;
+    const y = event.pageY - canvas.ctx.canvas.offsetTop;
 
     emitter.x = x;
     emitter.y = y;

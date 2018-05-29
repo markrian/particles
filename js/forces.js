@@ -1,12 +1,12 @@
 define({
     _forces: [],
     add: function add(forces) {
-        for (var i = 0; i < forces.length; i++) {
+        for (let i = 0; i < forces.length; i++) {
             this._forces.push(forces[i]);
         }
     },
     draw: function draw() {
-        for (var i = 0; i < this._forces.length; i++) {
+        for (let i = 0; i < this._forces.length; i++) {
             this._forces[i].draw();
         }
     },
@@ -18,9 +18,9 @@ define({
 
         // a.b = |a||b|cos(theta);
 
-        var count = this._forces.length;
-        for (var i = 0; i < count; i++) {
-            // var _r_ = [
+        const count = this._forces.length;
+        for (let i = 0; i < count; i++) {
+            // Var _r_ = [
             //     force.x - particle.x,
             //     force.y - particle.y
             // ];
@@ -28,8 +28,8 @@ define({
             // var F = force.strength;
             // var Fx = F * _r_[0] / r_squared;
 
-            var force = this._forces[i];
+            const force = this._forces[i];
             force.resolve(particle, dt);
         }
-    }
+    },
 });

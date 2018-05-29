@@ -6,7 +6,7 @@ export default class Particles {
         this.particles = [];
 
         for (let i = 0; i < number; i++) {
-            let particle = new Particle(
+            const particle = new Particle(
                 ctx,
                 random.between(0, ctx.canvas.width),
                 random.between(0, ctx.canvas.height),
@@ -22,21 +22,21 @@ export default class Particles {
     }
 
     draw() {
-        let number = this.particles.length;
+        const number = this.particles.length;
         for (let i = 0; i < number; i++) {
             this.particles[i].draw();
         }
     }
 
     update(timestamp) {
-        let number = this.particles.length;
+        const number = this.particles.length;
         for (let i = 0; i < number; i++) {
             this.particles[i].update(timestamp);
         }
     }
 
     refresh() {
-        let number = this.particles.length;
+        const number = this.particles.length;
         for (let i = 0; i < number; i++) {
             this.particles[i].randomise();
         }

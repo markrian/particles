@@ -1,15 +1,14 @@
-define(["particle", "random"], function (Particle, random) {
-
+define(['particle', 'random'], (Particle, random) => {
     function Emitter(
-            ctx,
-            x,
-            y,
-            frequency,
-            number,
-            speed,
-            startAngle,
-            endAngle
-            ) {
+        ctx,
+        x,
+        y,
+        frequency,
+        number,
+        speed,
+        startAngle,
+        endAngle
+    ) {
         this.x = x;
         this.y = y;
         this.frequency = frequency;
@@ -27,8 +26,8 @@ define(["particle", "random"], function (Particle, random) {
         this.emit(timestamp);
 
         // Update existing particles
-        var number = this.particles.length;
-        for (var i = 0; i < number; i++) {
+        const number = this.particles.length;
+        for (let i = 0; i < number; i++) {
             this.particles[i].update(timestamp);
         }
 
@@ -36,15 +35,15 @@ define(["particle", "random"], function (Particle, random) {
     };
 
     Emitter.prototype.draw = function draw() {
-        var number = this.particles.length;
-        for (var i = 0; i < number; i++) {
+        const number = this.particles.length;
+        for (let i = 0; i < number; i++) {
             this.particles[i].draw();
         }
     };
 
     Emitter.prototype._emit = function (timestamp) {
-        var particle = this._nextParticle();
-        var angle = random.betweenFloat(this.startAngle, this.endAngle);
+        const particle = this._nextParticle();
+        const angle = random.betweenFloat(this.startAngle, this.endAngle);
 
         particle.setProps({
             x: this.x,
@@ -53,13 +52,13 @@ define(["particle", "random"], function (Particle, random) {
             vy: this.speed * Math.sin(angle),
 
             // Hack? Make sure it starts in the right position.
-            timestamp: timestamp
+            timestamp,
         });
         this._lastEmission = timestamp;
     };
 
     Emitter.prototype._nextParticle = function () {
-        var particle;
+        let particle;
         this._current = this._current || 0;
 
         if (this.pool.length) {
@@ -74,25 +73,25 @@ define(["particle", "random"], function (Particle, random) {
     };
 
     Emitter.prototype.emit = function (timestamp) {
-        var lastEmission = this._lastEmission || timestamp;
-        var dt = timestamp - lastEmission;
+        const lastEmission = this._lastEmission || timestamp;
+        const dt = timestamp - lastEmission;
 
         // If we've never emitted before
         if (!dt) {
             this._emit(timestamp);
         }
 
-        var toEmit = Math.floor(this.frequency * dt / 1000);
-        for (var i = 0; i < toEmit; i++) {
-            // console.log("Emitting " + (i+1) + " of " + toEmit + " particles...");
+        const toEmit = Math.floor(this.frequency * dt / 1000);
+        for (let i = 0; i < toEmit; i++) {
+            // Console.log("Emitting " + (i+1) + " of " + toEmit + " particles...");
             // console.log(this.frequency, dt);
             this._emit(timestamp);
-            // console.log("pool: ", this.pool.length, "particles:", this.particles.length);
+            // Console.log("pool: ", this.pool.length, "particles:", this.particles.length);
         }
     };
 
     Emitter.prototype._initParticles = function _initParticles(number) {
-        for (var i = 0; i < number; i++) {
+        for (let i = 0; i < number; i++) {
             this.pool.push(
                 new Particle(this.ctx, 0, 0, 0, 0)
             );
@@ -100,5 +99,4 @@ define(["particle", "random"], function (Particle, random) {
     };
 
     return Emitter;
-
 });

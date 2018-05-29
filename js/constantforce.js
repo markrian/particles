@@ -1,4 +1,4 @@
-define(function () {
+define(() => {
     function ConstantForce(fx, fy) {
         this.fx = fx;
         this.fy = fy;
