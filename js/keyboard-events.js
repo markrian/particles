@@ -1,7 +1,6 @@
 import state from './state.js';
-import bindEvents from './bind-events.js';
 
-const listeners = {
+export default {
     keydown(event) {
         state.keys[event.key] = true;
     },
@@ -9,6 +8,4 @@ const listeners = {
     keyup(event) {
         state.keys[event.key] = false;
     },
-}
-
-bindEvents(window, listeners);
+};

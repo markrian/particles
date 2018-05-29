@@ -1,33 +1,40 @@
-const callbacks = [];
-let id;
-let isRunning = false;
+class Animation {
+    constructor() {
+        this.draw = this.draw.bind(this);
+    }
 
-function draw(timestamp) {
-    id = requestAnimationFrame(draw);
-    for (const callback of callbacks) {
-        callback(timestamp);
+    addUpdate(...fns) {
+        this.updateFns.push(...fns);
+    }
+
+    addDraw(...fns) {
+        this.drawFns.push(...fns);
+    }
+
+    draw() {
+        this.id = requestAnimationFrame(this.draw);
+        for (const callback of updateFns) {
+            callback(timestamp);
+        }
+    }
+
+    start() {
+        this.id = requestAnimationFrame(this.draw);
+        this.running = true;
+    }
+
+    stop() {
+        cancelAnimationFrame(this.id);
+        this.running = false;
+    }
+
+    toggle() {
+        if (this.running) {
+            this.stop();
+        } else {
+            this.start();
+        }
     }
 }
 
-const animation = {
-    add(...cbs) {
-        callbacks.push(...cbs);
-    },
-    start() {
-        id = requestAnimationFrame(draw);
-        isRunning = true;
-    },
-    stop() {
-        cancelAnimationFrame(id);
-        isRunning = false;
-    },
-    toggle() {
-        if (isRunning) {
-            animation.stop();
-        } else {
-            animation.start();
-        }
-    },
-};
-
-export default animation;
+export default new Animation();

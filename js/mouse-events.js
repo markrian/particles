@@ -1,7 +1,6 @@
 import state from './state.js';
-import bindEvents from './bind-events.js';
 
-const listeners = {
+export default {
     mousedown(event) {
         if (event.button === 0) {
             state.mouse.down = true;
@@ -15,8 +14,8 @@ const listeners = {
     },
 
     mouseup(event) {
-        state.mouse.down = false;
+        if (event.button === 0) {
+            state.mouse.down = false;
+        }
     },
-}
-
-bindEvents(window, listeners);
+};
