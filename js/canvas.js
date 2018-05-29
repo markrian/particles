@@ -4,6 +4,6 @@ const ctx = document.getElementById('view')
 export default {
     ctx,
     clear() {
-        ctx.canvas.width = ctx.canvas.width;
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     },
 };

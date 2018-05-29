@@ -1,15 +1,13 @@
-define(() => {
-    function ConstantForce(fx, fy) {
+export default class ConstantForce {
+    constructor(fx, fy) {
         this.fx = fx;
         this.fy = fy;
     }
 
-    ConstantForce.prototype.resolve = function (particle, dt) {
+    resolve(particle, /* dt */) {
         particle.vx += this.fx;
         particle.vy += this.fy;
-    };
+    }
 
-    ConstantForce.prototype.draw = function () {};
-
-    return ConstantForce;
-});
+    draw() {}
+}

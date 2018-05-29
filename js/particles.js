@@ -1,5 +1,5 @@
 import Particle from './particle.js';
-import random from './random.js';
+import * as random from './random.js';
 
 export default class Particles {
     constructor(number, speed, ctx) {

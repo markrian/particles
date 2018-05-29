@@ -9,9 +9,9 @@ function draw(timestamp) {
     }
 }
 
-export default {
-    add() {
-        callbacks.push(...arguments);
+const animation = {
+    add(...callbacks) {
+        callbacks.push(...callbacks);
     },
     start() {
         id = requestAnimationFrame(draw);
@@ -29,3 +29,5 @@ export default {
         }
     },
 };
+
+export default animation;

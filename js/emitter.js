@@ -1,5 +1,8 @@
-define(['particle', 'random'], (Particle, random) => {
-    function Emitter(
+import Particle from './particle.js';
+import * as random from './random.js';
+
+export default class Emitter {
+    constructor(
         ctx,
         x,
         y,
@@ -22,7 +25,7 @@ define(['particle', 'random'], (Particle, random) => {
         this._initParticles(number);
     }
 
-    Emitter.prototype.update = function update(timestamp) {
+    update(timestamp) {
         this.emit(timestamp);
 
         // Update existing particles
@@ -32,16 +35,16 @@ define(['particle', 'random'], (Particle, random) => {
         }
 
         this.timestamp = timestamp;
-    };
+    }
 
-    Emitter.prototype.draw = function draw() {
+    draw() {
         const number = this.particles.length;
         for (let i = 0; i < number; i++) {
             this.particles[i].draw();
         }
-    };
+    }
 
-    Emitter.prototype._emit = function (timestamp) {
+    _emit(timestamp) {
         const particle = this._nextParticle();
         const angle = random.betweenFloat(this.startAngle, this.endAngle);
 
@@ -55,13 +58,13 @@ define(['particle', 'random'], (Particle, random) => {
             timestamp,
         });
         this._lastEmission = timestamp;
-    };
+    }
 
-    Emitter.prototype._nextParticle = function () {
+    _nextParticle() {
         let particle;
         this._current = this._current || 0;
 
-        if (this.pool.length) {
+        if (this.pool.length > 0) {
             particle = this.pool.pop();
             this.particles.push(particle);
         } else {
@@ -70,9 +73,9 @@ define(['particle', 'random'], (Particle, random) => {
         }
 
         return particle;
-    };
+    }
 
-    Emitter.prototype.emit = function (timestamp) {
+    emit(timestamp) {
         const lastEmission = this._lastEmission || timestamp;
         const dt = timestamp - lastEmission;
 
@@ -88,15 +91,13 @@ define(['particle', 'random'], (Particle, random) => {
             this._emit(timestamp);
             // Console.log("pool: ", this.pool.length, "particles:", this.particles.length);
         }
-    };
+    }
 
-    Emitter.prototype._initParticles = function _initParticles(number) {
+    _initParticles(number) {
         for (let i = 0; i < number; i++) {
             this.pool.push(
                 new Particle(this.ctx, 0, 0, 0, 0)
             );
         }
-    };
-
-    return Emitter;
-});
+    }
+}

@@ -1,6 +1,5 @@
 import log from './log.js';
 import canvas from './canvas.js';
-import Particles from './particles.js';
 import animation from './animation.js';
 import forces from './forces.js';
 import RadialForce from './radialforce.js';
@@ -45,11 +44,11 @@ animation.add(
 
 animation.start();
 
-document.body.addEventListener('click', event => {
+document.body.addEventListener('click', _ => {
     animation.toggle();
 });
 
-canvas.ctx.canvas.addEventListener('mousemove', function onMouseMove(event) {
+canvas.ctx.canvas.addEventListener('mousemove', event => {
     const x = event.pageX - canvas.ctx.canvas.offsetLeft;
     const y = event.pageY - canvas.ctx.canvas.offsetTop;
 

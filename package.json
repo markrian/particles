@@ -22,7 +22,11 @@
         "error",
         "smart"
       ],
+      "import/extensions": "off",
+      "max-params": "off",
       "no-eq-null": "off",
+      "no-mixed-operators": "off",
+      "no-multi-assign": "off",
       "object-curly-spacing": [
         "error",
         "always"

@@ -28,4 +28,4 @@ export default {
             force.resolve(particle, dt);
         }
     },
-}
+};
