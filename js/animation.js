@@ -10,8 +10,8 @@ function draw(timestamp) {
 }
 
 const animation = {
-    add(...callbacks) {
-        callbacks.push(...callbacks);
+    add(...cbs) {
+        callbacks.push(...cbs);
     },
     start() {
         id = requestAnimationFrame(draw);

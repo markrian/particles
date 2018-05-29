@@ -27,6 +27,7 @@
       "no-eq-null": "off",
       "no-mixed-operators": "off",
       "no-multi-assign": "off",
+      "no-shadow": "error",
       "object-curly-spacing": [
         "error",
         "always"
