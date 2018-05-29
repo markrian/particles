@@ -1,13 +1,12 @@
-define([
-    "particle",
-    "random"
-    ], function (Particle, random) {
+import Particle from './particle.js';
+import random from './random.js';
 
-    function Particles(number, speed, ctx) {
+export default class Particles {
+    constructor(number, speed, ctx) {
         this.particles = [];
 
-        for (var i = 0; i < number; i++) {
-            var particle = new Particle(
+        for (let i = 0; i < number; i++) {
+            let particle = new Particle(
                 ctx,
                 random.between(0, ctx.canvas.width),
                 random.between(0, ctx.canvas.height),
@@ -18,30 +17,28 @@ define([
         }
     }
 
-    Particles.prototype.add = function add(particle) {
+    add(particle) {
         this.particles.push(particle);
-    };
+    }
 
-    Particles.prototype.draw = function draw() {
-        var number = this.particles.length;
-        for (var i = 0; i < number; i++) {
+    draw() {
+        let number = this.particles.length;
+        for (let i = 0; i < number; i++) {
             this.particles[i].draw();
         }
-    };
+    }
 
-    Particles.prototype.update = function update(timestamp) {
-        var number = this.particles.length;
-        for (var i = 0; i < number; i++) {
+    update(timestamp) {
+        let number = this.particles.length;
+        for (let i = 0; i < number; i++) {
             this.particles[i].update(timestamp);
         }
-    };
+    }
 
-    Particles.prototype.randomise = function refresh() {
-        var number = this.particles.length;
-        for (var i = 0; i < number; i++) {
+    refresh() {
+        let number = this.particles.length;
+        for (let i = 0; i < number; i++) {
             this.particles[i].randomise();
         }
-    };
-
-    return Particles;
-});
+    }
+}
