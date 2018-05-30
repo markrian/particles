@@ -13,9 +13,9 @@ class GameLoop {
 
         this.loop = () => {
             const now = performance.now();
-            const dt = now - this.previousNow;
-            this.previousNow = now;
+            let dt = now - this.previousNow;
             this.lag += dt;
+            this.previousNow = now;
 
             this.frameId = requestAnimationFrame(this.loop);
 
