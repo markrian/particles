@@ -4,7 +4,6 @@ class GameLoop {
     constructor() {
         this.frameId = 0;
         this.loop = null;
-        this.lag = 0;
         this.previousNow = 0;
     }
 
@@ -14,20 +13,18 @@ class GameLoop {
         this.loop = () => {
             const now = performance.now();
             let dt = now - this.previousNow;
-            this.lag += dt;
             this.previousNow = now;
 
             this.frameId = requestAnimationFrame(this.loop);
 
-            while (this.lag >= FRAME_TIME) {
+            while (dt >= FRAME_TIME) {
                 update();
-                this.lag -= FRAME_TIME;
+                dt -= FRAME_TIME;
             }
 
             draw();
         };
 
-        this.lag = 0;
         this.previousNow = performance.now();
         this.loop();
     }
@@ -37,7 +34,6 @@ class GameLoop {
     }
 
     resume() {
-        this.lag = 0;
         this.previousNow = performance.now();
         this.loop();
     }
