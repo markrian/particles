@@ -5,7 +5,11 @@ export default {
     keydown(event) {
         if (event.key === 'p' && !state.keys.p) {
             state.paused = !state.paused;
-            state.paused ? loop.pause() : loop.resume();
+            if (state.paused) {
+                loop.pause();
+            } else {
+                loop.resume();
+            }
         }
 
         state.keys[event.key] = true;

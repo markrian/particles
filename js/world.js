@@ -13,7 +13,7 @@ export default class World {
             ctx,
             state.width / 2,
             state.height / 2,
-            1, // Frequency
+            60, // Frequency
             2000, // Particle pool size
             100, // Particle speed
             0,
@@ -25,6 +25,8 @@ export default class World {
         this.elapsed += dt;
 
         this.forces.call('update', dt, this.state);
+        // this.emitter[0].x = this.state.mouse.x;
+        // this.emitter[0].y = this.state.mouse.y;
         this.emitters.call('update', dt, this.state);
     }
 

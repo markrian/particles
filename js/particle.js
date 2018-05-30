@@ -1,6 +1,6 @@
 import forces from './forces.js';
 import { pointInRect } from './collision.js';
-import { fillCircle } from './canvas.js';
+import { drawDisc } from './canvas.js';
 import { warn } from './log.js';
 
 export default class Particle {
@@ -40,7 +40,7 @@ export default class Particle {
             return;
         }
 
-        fillCircle(this.ctx, this.x, this.y, this.radius, 'black');
+        drawDisc(this.ctx, this.x, this.y, this.radius, 'black');
     }
 
     speed() {
