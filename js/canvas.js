@@ -10,7 +10,7 @@ export function drawDisc(context, x, y, radius, fillStyle) {
     context.fill();
 }
 
-export function drawReticule(context, x, y) {
+export function drawReticle(context, x, y) {
     context.beginPath();
     const size = 16;
     const thickness = 2;

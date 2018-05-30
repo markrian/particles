@@ -1,6 +1,6 @@
 import Particle from './particle.js';
 import * as random from './random.js';
-import { drawDisc, drawReticule } from './canvas.js';
+import { drawDisc, drawReticle } from './canvas.js';
 import { near } from './collision.js';
 
 export default class Emitter {
@@ -34,6 +34,12 @@ export default class Emitter {
         }
 
         this.hovered = near(this.x, this.y, state.mouse.x, state.mouse.y);
+        state.activeItem = this;
+
+        if (state.mouse.dragging && state.activeItem === this) {
+            this.x = state.mouse.x;
+            this.y = state.mouse.y;
+        }
     }
 
     draw() {
@@ -44,7 +50,7 @@ export default class Emitter {
         }
 
         if (this.hovered) {
-            drawReticule(this.ctx, this.x, this.y);
+            drawReticle(this.ctx, this.x, this.y);
         }
     }
 
