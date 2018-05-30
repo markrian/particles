@@ -1,5 +1,7 @@
 import forces from './forces.js';
 import { pointInRect } from './collision.js';
+import { fillCircle } from './canvas.js';
+import { warn } from './log.js';
 
 export default class Particle {
     constructor(ctx, parent, x, y, vx, vy) {
@@ -9,7 +11,7 @@ export default class Particle {
         this.y = y;
         this.vx = vx;
         this.vy = vy;
-        this.size = 1;
+        this.radius = 10;
         this.mass = this.size * this.size;
         this.inView = true;
     }
@@ -18,7 +20,14 @@ export default class Particle {
         forces.resolve(this, dt);
         this.x += this.vx * dt / 1000;
         this.y += this.vy * dt / 1000;
-        this.inView = pointInRect(this.x, this.y, 0, 0, state.width, state.height);
+        this.inView = pointInRect(
+            this.x,
+            this.y,
+            -this.radius,
+            -this.radius,
+            state.width + 2 * this.radius,
+            state.height + 2 * this.radius,
+        );
 
         if (!this.inView && this.parent !== undefined) {
             this.parent.splice(indexInParent, 1);
@@ -27,12 +36,11 @@ export default class Particle {
 
     draw() {
         if (!this.inView) {
-            console.log('entered particle.draw, but did not in view!');
+            warn('entered particle.draw, but did not in view!');
             return;
         }
 
-        this.ctx.fillStyle = 'rgb(0,0,0)';
-        this.ctx.fillRect(this.x, this.y, this.size, this.size);
+        fillCircle(this.ctx, this.x, this.y, this.radius, 'black');
     }
 
     speed() {

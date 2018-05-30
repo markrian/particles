@@ -13,11 +13,11 @@ export default class World {
             ctx,
             state.width / 2,
             state.height / 2,
-            60, // Frequency
+            1, // Frequency
             2000, // Particle pool size
             100, // Particle speed
-            1,
-            1 + Math.PI,
+            0,
+            2 * Math.PI
         ));
     }
 
