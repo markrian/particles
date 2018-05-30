@@ -11,8 +11,8 @@ export default class Particle {
         this.y = y;
         this.vx = vx;
         this.vy = vy;
-        this.radius = 10;
-        this.mass = this.size * this.size;
+        this.radius = 1;
+        this.mass = this.radius * this.radius;
         this.inView = true;
     }
 
