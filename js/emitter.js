@@ -31,10 +31,8 @@ export default class Emitter {
         // Update existing particles
         const number = this.particles.length;
         for (let i = 0; i < number; i++) {
-            this.particles[i].update(timestamp);
+            this.particles[i].update(dt);
         }
-
-        this.timestamp = timestamp;
     }
 
     draw() {
