@@ -62,8 +62,6 @@ export class RadialForce {
         const ax = direction[0] / distance * a;
         const ay = direction[1] / distance * a;
 
-        particle.netForce[0] = ax;
-        particle.netForce[1] = ay;
         particle.vx += ax * dt;
         particle.vy += ay * dt;
     }

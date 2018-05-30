@@ -14,7 +14,7 @@ export default class World {
             state.width / 2,
             state.height / 2 - 100,
             1, // Frequency
-            200, // Particle speed
+            400, // Particle speed
             0,
             0,
         ));
