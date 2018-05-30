@@ -1,5 +1,4 @@
 import List from './list.js';
-import { drawDisc } from './canvas.js';
 
 const MASS_FACTOR = 100;
 
@@ -50,17 +49,16 @@ export class RadialForce {
             particle.x - this.x,
             particle.y - this.y,
         ];
-        let distanceSquared = direction[0] * direction[0] +
+        const distanceSquared = direction[0] * direction[0] +
             direction[1] * direction[1];
+        const distance = Math.sqrt(distanceSquared);
 
-        // f = GMm/r^2
-        // ma = Sm/r^2
-        // dv = S*dt/r^2
+        // From a = GM/r^2
         const a = MASS_FACTOR * this.mass / distanceSquared;
 
-        let distance = Math.sqrt(distanceSquared);
-        const ax = direction[0] / distance * a;
-        const ay = direction[1] / distance * a;
+        // Scale direction vector to acceleration vector
+        const ax = a * direction[0] / distance;
+        const ay = a * direction[1] / distance;
 
         particle.vx += ax * dt;
         particle.vy += ay * dt;

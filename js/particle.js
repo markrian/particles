@@ -14,8 +14,6 @@ export default class Particle {
         this.radius = 1;
         this.mass = this.radius * this.radius;
         this.inView = true;
-
-        this.netForce = [0,0];
     }
 
     update(dt, state, indexInParent) {
