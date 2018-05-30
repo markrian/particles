@@ -1,5 +1,3 @@
-const FRAME_TIME = 1000 / 60;
-
 class GameLoop {
     constructor() {
         this.frameId = 0;

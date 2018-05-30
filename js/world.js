@@ -1,12 +1,12 @@
 import List from './list.js';
 import Emitter from './emitter.js';
+import forces, { RadialForce, ConstantForce } from './forces.js';
 
 export default class World {
     constructor(state, ctx) {
         this.state = state;
         this.ctx = ctx;
-        this.elapsed = 0;
-        this.forces = new List();
+        this.forces = forces;
         this.emitters = new List();
 
         this.emitters.push(new Emitter(
@@ -19,14 +19,26 @@ export default class World {
             0,
             2 * Math.PI
         ));
+
+        this.forces.push(
+            // new RadialForce(
+            //     this.ctx,
+            //     this.state.width / 4 - 200,
+            //     this.state.width / 4 - 50,
+            //     160,
+            // ),
+            new RadialForce(
+                this.ctx,
+                this.state.width / 4 + 100,
+                this.state.width / 4,
+                -16,
+            ),
+            // new ConstantForce(0, .5),
+        );
     }
 
     update(dt) {
-        this.elapsed += dt;
-
         this.forces.call('update', dt, this.state);
-        // this.emitter[0].x = this.state.mouse.x;
-        // this.emitter[0].y = this.state.mouse.y;
         this.emitters.call('update', dt, this.state);
     }
 

@@ -1,32 +1,31 @@
-export default {
-    _forces: [],
-    add(forces) {
-        this._forces.push(...forces);
-    },
-    draw() {
-        for (const force of this._forces) {
-            force.draw();
-        }
-    },
-    resolve(particle, dt) {
-        for (const force of this._forces) {
-            force.resolve(particle, dt);
-        }
-    },
-};
+import List from './list.js';
+import { drawDisc } from './canvas.js';
 
+class Forces extends List {
+}
+
+export default new Forces();
+
+// F = m*a
+// a = F / m
+// dv/dt = F / m
+// dv = F*dt / m
 export class ConstantForce {
     constructor(fx, fy) {
         this.fx = fx;
         this.fy = fy;
     }
 
-    resolve(particle, /* dt */) {
-        particle.vx += this.fx;
-        particle.vy += this.fy;
+    update(dt, state) {
     }
 
-    draw() {}
+    resolve(particle, dt) {
+        particle.vx += this.fx * dt / particle.mass;
+        particle.vy += this.fy * dt / particle.mass;
+    }
+
+    draw() {
+    }
 }
 
 export class RadialForce {
@@ -36,11 +35,16 @@ export class RadialForce {
         this.y = y;
         this.direction = strength >= 0 ? 1 : -1;
         this.strength = Math.abs(strength);
-
-        this._preDraw();
     }
 
-    resolve(particle, /* dt */) {
+    update(dt, state) {
+        if (this.direction < 0) {
+            this.x = state.mouse.x;
+            this.y = state.mouse.y;
+        }
+    }
+
+    resolve(particle, dt) {
         const direction = [
             particle.x - this.x,
             particle.y - this.y,
@@ -48,36 +52,28 @@ export class RadialForce {
         let distanceSquared = direction[0] * direction[0] +
             direction[1] * direction[1];
 
-        if (this.direction < 0) {
-            distanceSquared = Math.sqrt(distanceSquared);
-        }
-
+        // f = GMm/r^2
+        // ma = Sm/r^2
+        // dv = S*dt/r^2
         const fx = this.strength * this.direction * direction[0] / distanceSquared;
         const fy = this.strength * this.direction * direction[1] / distanceSquared;
-        particle.vx += fx;
-        particle.vy += fy;
+        particle.vx += fx * dt;
+        particle.vy += fy * dt;
     }
 
     draw() {
-        this.ctx.drawImage(this._canvas, this.x - this.strength, this.y - this.strength);
-    }
-
-    _preDraw() {
-        const c = this._canvas = document.createElement('canvas');
-        c.width = c.height = this.strength * 2;
-        const ctx = c.getContext('2d');
-        const radialGradient = ctx.createRadialGradient(
-            this.strength,
-            this.strength,
+        const radialGradient = this.ctx.createRadialGradient(
+            this.x,
+            this.y,
             0,
+            this.x,
+            this.y,
             this.strength,
-            this.strength,
-            this.strength
         );
-        const color = this.direction === 0 ? '0,0,127' : '127,0,0';
+        const color = this.direction === -1 ? '0,127,0' : '127,0,0';
         radialGradient.addColorStop(0, 'rgba(' + color + ',1)');
         radialGradient.addColorStop(1, 'rgba(' + color + ',0)');
-        ctx.fillStyle = radialGradient;
-        ctx.fillRect(0, 0, this.strength * 2, this.strength * 2);
+        this.ctx.fillStyle = radialGradient;
+        this.ctx.fillRect(this.x - this.strength, this.y - this.strength, this.strength * 2, this.strength * 2);
     }
 }
