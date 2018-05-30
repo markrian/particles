@@ -1,6 +1,6 @@
 import Particle from './particle.js';
 import * as random from './random.js';
-import { drawReticule } from './canvas.js';
+import { drawDisc, drawReticule } from './canvas.js';
 import { near } from './collision.js';
 
 export default class Emitter {
@@ -37,6 +37,8 @@ export default class Emitter {
     }
 
     draw() {
+        drawDisc(this.ctx, this.x, this.y, 2.5, 'blue');
+
         for (const particle of this.particles) {
             particle.draw();
         }

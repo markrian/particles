@@ -12,26 +12,23 @@ export function drawDisc(context, x, y, radius, fillStyle) {
 
 export function drawReticule(context, x, y) {
     context.beginPath();
-    const size = 20;
-    const thickness = 4;
+    const size = 16;
+    const thickness = 2;
     const style = 'black';
 
-    context.rect(x - size/2 - thickness/2, y - size/2 - thickness/2, thickness, thickness);
-    context.rect(x - size/2 - thickness/2, y - size/2 + thickness/2, thickness, thickness);
-    context.rect(x - size/2 + thickness/2, y - size/2 - thickness/2, thickness, thickness);
+    context.save();
+    context.translate(x, y);
 
-    context.rect(x + size/2 + thickness/2, y - size/2 - thickness/2, thickness, thickness);
-    context.rect(x + size/2 + thickness/2, y - size/2 + thickness/2, thickness, thickness);
-    context.rect(x + size/2 - thickness/2, y - size/2 - thickness/2, thickness, thickness);
+    for (let i = 0; i < 4; i++) {
+        context.rect(-size, -size, thickness, thickness);
+        context.rect(-size + thickness, -size, thickness, thickness);
+        context.rect(-size, -size + thickness, thickness, thickness);
 
-    context.rect(x - size/2 - thickness/2, y + size/2 + thickness/2, thickness, thickness);
-    context.rect(x - size/2 - thickness/2, y + size/2 - thickness/2, thickness, thickness);
-    context.rect(x - size/2 + thickness/2, y + size/2 + thickness/2, thickness, thickness);
-
-    context.rect(x + size/2 + thickness/2, y + size/2 + thickness/2, thickness, thickness);
-    context.rect(x + size/2 + thickness/2, y + size/2 - thickness/2, thickness, thickness);
-    context.rect(x + size/2 - thickness/2, y + size/2 + thickness/2, thickness, thickness);
+        context.rotate(Math.PI/2);
+    }
 
     context.fillStyle = style;
     context.fill();
+
+    context.restore();
 }
