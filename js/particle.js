@@ -14,6 +14,8 @@ export default class Particle {
         this.radius = 1;
         this.mass = this.radius * this.radius;
         this.inView = true;
+
+        this.netForce = [0,0];
     }
 
     update(dt, state, indexInParent) {
@@ -41,6 +43,12 @@ export default class Particle {
         }
 
         drawDisc(this.ctx, this.x, this.y, this.radius, 'black');
+
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = 'blue';
+        this.ctx.moveTo(this.x, this.y);
+        this.ctx.lineTo(this.x + this.netForce[0]*10000, this.y + this.netForce[1]*10000);
+        this.ctx.stroke();
     }
 
     speed() {

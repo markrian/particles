@@ -1,6 +1,8 @@
 import List from './list.js';
 import { drawDisc } from './canvas.js';
 
+const MASS_FACTOR = 100;
+
 class Forces extends List {
 }
 
@@ -29,16 +31,15 @@ export class ConstantForce {
 }
 
 export class RadialForce {
-    constructor(ctx, x, y, strength) {
+    constructor(ctx, x, y, mass) {
         this.ctx = ctx;
         this.x = x;
         this.y = y;
-        this.direction = strength >= 0 ? 1 : -1;
-        this.strength = Math.abs(strength);
+        this.mass = mass;
     }
 
     update(dt, state) {
-        if (this.direction < 0) {
+        if (false) {
             this.x = state.mouse.x;
             this.y = state.mouse.y;
         }
@@ -55,25 +56,32 @@ export class RadialForce {
         // f = GMm/r^2
         // ma = Sm/r^2
         // dv = S*dt/r^2
-        const fx = this.strength * this.direction * direction[0] / distanceSquared;
-        const fy = this.strength * this.direction * direction[1] / distanceSquared;
-        particle.vx += fx * dt;
-        particle.vy += fy * dt;
+        const a = MASS_FACTOR * this.mass / distanceSquared;
+
+        let distance = Math.sqrt(distanceSquared);
+        const ax = direction[0] / distance * a;
+        const ay = direction[1] / distance * a;
+
+        particle.netForce[0] = ax;
+        particle.netForce[1] = ay;
+        particle.vx += ax * dt;
+        particle.vy += ay * dt;
     }
 
     draw() {
+        const absMass = Math.abs(this.mass);
         const radialGradient = this.ctx.createRadialGradient(
             this.x,
             this.y,
             0,
             this.x,
             this.y,
-            this.strength,
+            absMass,
         );
         const color = this.direction === -1 ? '0,127,0' : '127,0,0';
         radialGradient.addColorStop(0, 'rgba(' + color + ',1)');
         radialGradient.addColorStop(1, 'rgba(' + color + ',0)');
         this.ctx.fillStyle = radialGradient;
-        this.ctx.fillRect(this.x - this.strength, this.y - this.strength, this.strength * 2, this.strength * 2);
+        this.ctx.fillRect(this.x - absMass, this.y - absMass, absMass * 2, absMass * 2);
     }
 }
