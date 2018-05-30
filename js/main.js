@@ -6,6 +6,7 @@ import bindEvents from './bind-events.js';
 import keyboardEvents from './keyboard-events.js';
 import mouseEvents from './mouse-events.js';
 import windowEvents from './window-events.js';
+import loop from './game-loop.js';
 
 log('Ready');
 
@@ -19,13 +20,10 @@ function init() {
     const world = new World(state, ctx);
     const dt = 1000 / 60;
 
-    function loop() {
-        requestAnimationFrame(loop);
+    loop.start(() => {
         world.update(dt);
         world.draw();
-    }
-
-    loop();
+    });
 }
 
 init();

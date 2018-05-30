@@ -22,10 +22,6 @@ export default class World {
     }
 
     update(dt) {
-        if (this.state.paused) {
-            return;
-        }
-
         this.elapsed += dt;
 
         this.forces.call('update', dt, this.state);
