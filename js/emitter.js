@@ -14,7 +14,8 @@ export default class Emitter {
     ) {
         this.x = x;
         this.y = y;
-        this.frequency = frequency;
+        this.msPerEmission = 1000 / frequency;
+        this.msToNextEmission = this.msPerEmission;
         this.speed = speed;
         this.particles = [];
         this.ctx = ctx;
@@ -41,10 +42,33 @@ export default class Emitter {
     }
 
     emit(dt) {
-        const toEmit = Math.floor(this.frequency * dt / 1000);
-        for (let i = 0; i < toEmit; i++) {
-            this._emit();
+        if (this.msPerEmission < dt) {
+            let elapsed = 0;
+            while (elapsed < dt) {
+                this._emit();
+                elapsed += this.msPerEmission;
+            }
+        } else {
+            if (this.msToNextEmission <= 0) {
+                this._emit();
+                this.msToNextEmission = this.msPerEmission;
+            } else {
+                this.msToNextEmission -= dt;
+            }
         }
+        // const toEmit = Math.floor(dt / this.msPerEmission);
+        // if (toEmit === 0) {
+        //     this.msToNextEmission -= dt;
+        //     if (this.msToNextEmission > 0) {
+        //         return;
+        //     }
+
+        //     this.msToNextEmission = this.msPerEmission;
+        // }
+
+        // for (let i = 0; i < toEmit; i++) {
+        //     this._emit();
+        // }
     }
 
     _emit() {
