@@ -28,13 +28,13 @@ export default class World {
 
         this.elapsed += dt;
 
-        this.forces.invoke('update', dt);
-        this.emitters.invoke('update', dt);
+        this.forces.call('update', dt, this.state);
+        this.emitters.call('update', dt, this.state);
     }
 
     draw() {
         this.ctx.clearRect(0, 0, this.state.width, this.state.height);
-        this.forces.invoke('draw');
-        this.emitters.invoke('draw');
+        this.forces.call('draw');
+        this.emitters.call('draw');
     }
 }

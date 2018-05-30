@@ -5,16 +5,16 @@ import World from './world.js';
 import bindEvents from './bind-events.js';
 import keyboardEvents from './keyboard-events.js';
 import mouseEvents from './mouse-events.js';
-import resizeEvents from './resize-events.js';
+import windowEvents from './window-events.js';
 
 log('Ready');
 
 function init() {
     bindEvents(window, keyboardEvents);
     bindEvents(window, mouseEvents);
-    bindEvents(window, resizeEvents);
+    bindEvents(window, windowEvents);
 
-    resizeEvents.resize();
+    windowEvents.resize();
 
     const world = new World(state, ctx);
     const dt = 1000 / 60;

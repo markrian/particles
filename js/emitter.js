@@ -16,25 +16,26 @@ export default class Emitter {
         this.y = y;
         this.frequency = frequency;
         this.speed = speed;
-        this.pool = [];
         this.particles = [];
         this.ctx = ctx;
         this.number = number;
         this.startAngle = startAngle;
         this.endAngle = endAngle;
-        this._initParticles(number);
     }
 
-    update(dt) {
+    update(dt, state) {
         this.emit(dt);
 
-        for (const particle of this.particles) {
-            particle.update(dt);
+        let i = this.particles.length;
+        while (i-- > 0) {
+            this.particles[i].update(dt, state, i);
         }
     }
 
     draw() {
+        let count = 0;
         for (const particle of this.particles) {
+            if (particle.inView) count++;
             particle.draw();
         }
     }
@@ -47,37 +48,17 @@ export default class Emitter {
     }
 
     _emit() {
-        const particle = this._nextParticle();
         const angle = random.betweenFloat(this.startAngle, this.endAngle);
 
-        particle.setProps({
-            x: this.x,
-            y: this.y,
-            vx: this.speed * Math.cos(angle),
-            vy: this.speed * Math.sin(angle),
-        });
-    }
+        const particle = new Particle(
+            this.ctx,
+            this.particles,
+            this.x,
+            this.y,
+            this.speed * Math.cos(angle),
+            this.speed * Math.sin(angle),
+        );
 
-    _nextParticle() {
-        let particle;
-        this._current = this._current || 0;
-
-        if (this.pool.length > 0) {
-            particle = this.pool.pop();
-            this.particles.push(particle);
-        } else {
-            particle = this.particles[this._current % this.number];
-            this._current++;
-        }
-
-        return particle;
-    }
-
-    _initParticles(number) {
-        while (number-- > 0) {
-            this.pool.push(
-                new Particle(this.ctx, 0, 0, 0, 0)
-            );
-        }
+        this.particles.push(particle);
     }
 }
