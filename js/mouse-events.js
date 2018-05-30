@@ -10,7 +10,7 @@ export default {
     mousemove(event) {
         // TODO: will want to transform to canvas coords, probably?
         state.mouse.x = event.pageX;
-        state.mouse.y = event.pageX;
+        state.mouse.y = event.pageY;
     },
 
     mouseup(event) {
