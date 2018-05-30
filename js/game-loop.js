@@ -38,7 +38,7 @@ class GameLoop {
 
     resume() {
         this.lag = 0;
-        this.previousNow = 0;
+        this.previousNow = performance.now();
         this.loop();
     }
 }
