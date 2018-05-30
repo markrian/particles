@@ -7,7 +7,6 @@ export default class Emitter {
         x,
         y,
         frequency,
-        number,
         speed,
         startAngle,
         endAngle
@@ -19,7 +18,6 @@ export default class Emitter {
         this.speed = speed;
         this.particles = [];
         this.ctx = ctx;
-        this.number = number;
         this.startAngle = startAngle;
         this.endAngle = endAngle;
     }

@@ -13,25 +13,18 @@ export default class World {
             ctx,
             state.width / 2,
             state.height / 2,
-            60, // Frequency
-            2000, // Particle pool size
-            100, // Particle speed
-            0,
-            2 * Math.PI
+            200, // Frequency
+            200, // Particle speed
+            -Math.PI/6,
+            Math.PI/6,
         ));
 
         this.forces.push(
-            // new RadialForce(
-            //     this.ctx,
-            //     this.state.width / 4 - 200,
-            //     this.state.width / 4 - 50,
-            //     160,
-            // ),
             new RadialForce(
                 this.ctx,
-                this.state.width / 4 + 100,
-                this.state.width / 4,
-                -16,
+                state.width / 2 + 200,
+                state.height / 2,
+                16,
             ),
             // new ConstantForce(0, .5),
         );
