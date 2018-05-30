@@ -12,22 +12,22 @@ export default class World {
         this.emitters.push(new Emitter(
             ctx,
             state.width / 2,
-            state.height / 2 - 100,
-            1, // Frequency
-            400, // Particle speed
+            state.height / 2 - 150,
+            10, // Frequency
+            200, // Particle speed
             0,
             0,
         ));
 
-        this.forces.push(
-            new RadialForce(
-                this.ctx,
-                state.width / 2,
-                state.height / 2,
-                -160,
-            ),
-            // new ConstantForce(0, .5),
-        );
+        // this.forces.push(
+        //     new RadialForce(
+        //         this.ctx,
+        //         state.width / 2,
+        //         state.height / 2,
+        //         -160,
+        //     ),
+        //     // new ConstantForce(0, .5),
+        // );
     }
 
     update(dt) {

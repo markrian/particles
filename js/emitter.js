@@ -1,5 +1,7 @@
 import Particle from './particle.js';
 import * as random from './random.js';
+import { drawReticule } from './canvas.js';
+import { near } from './collision.js';
 
 export default class Emitter {
     constructor(
@@ -20,6 +22,7 @@ export default class Emitter {
         this.ctx = ctx;
         this.startAngle = startAngle;
         this.endAngle = endAngle;
+        this.hovered = false;
     }
 
     update(dt, state) {
@@ -29,11 +32,17 @@ export default class Emitter {
         while (i-- > 0) {
             this.particles[i].update(dt, state, i);
         }
+
+        this.hovered = near(this.x, this.y, state.mouse.x, state.mouse.y);
     }
 
     draw() {
         for (const particle of this.particles) {
             particle.draw();
+        }
+
+        if (this.hovered) {
+            drawReticule(this.ctx, this.x, this.y);
         }
     }
 
