@@ -1,9 +1,5 @@
 import log from './log.js';
-import { canvas, ctx, clear } from './canvas.js';
-import forces from './forces.js';
-import RadialForce from './radialforce.js';
-import ConstantForce from './constantforce.js';
-import Emitter from './emitter.js';
+import { ctx } from './canvas.js';
 import state from './state.js';
 import World from './world.js';
 import bindEvents from './bind-events.js';

@@ -25,24 +25,28 @@ export default class Emitter {
         this._initParticles(number);
     }
 
-    update(timestamp) {
-        this.emit(timestamp);
+    update(dt) {
+        this.emit(dt);
 
-        // Update existing particles
-        const number = this.particles.length;
-        for (let i = 0; i < number; i++) {
-            this.particles[i].update(dt);
+        for (const particle of this.particles) {
+            particle.update(dt);
         }
     }
 
     draw() {
-        const number = this.particles.length;
-        for (let i = 0; i < number; i++) {
-            this.particles[i].draw();
+        for (const particle of this.particles) {
+            particle.draw();
         }
     }
 
-    _emit(timestamp) {
+    emit(dt) {
+        const toEmit = Math.floor(this.frequency * dt / 1000);
+        for (let i = 0; i < toEmit; i++) {
+            this._emit();
+        }
+    }
+
+    _emit() {
         const particle = this._nextParticle();
         const angle = random.betweenFloat(this.startAngle, this.endAngle);
 
@@ -51,11 +55,7 @@ export default class Emitter {
             y: this.y,
             vx: this.speed * Math.cos(angle),
             vy: this.speed * Math.sin(angle),
-
-            // Hack? Make sure it starts in the right position.
-            timestamp,
         });
-        this._lastEmission = timestamp;
     }
 
     _nextParticle() {
@@ -73,26 +73,8 @@ export default class Emitter {
         return particle;
     }
 
-    emit(timestamp) {
-        const lastEmission = this._lastEmission || timestamp;
-        const dt = timestamp - lastEmission;
-
-        // If we've never emitted before
-        if (!dt) {
-            this._emit(timestamp);
-        }
-
-        const toEmit = Math.floor(this.frequency * dt / 1000);
-        for (let i = 0; i < toEmit; i++) {
-            // Console.log("Emitting " + (i+1) + " of " + toEmit + " particles...");
-            // console.log(this.frequency, dt);
-            this._emit(timestamp);
-            // Console.log("pool: ", this.pool.length, "particles:", this.particles.length);
-        }
-    }
-
     _initParticles(number) {
-        for (let i = 0; i < number; i++) {
+        while (number-- > 0) {
             this.pool.push(
                 new Particle(this.ctx, 0, 0, 0, 0)
             );

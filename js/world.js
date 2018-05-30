@@ -29,7 +29,7 @@ export default class World {
         this.elapsed += dt;
 
         this.forces.invoke('update', dt);
-        this.emitters.invoke('update', this.elapsed);
+        this.emitters.invoke('update', dt);
     }
 
     draw() {

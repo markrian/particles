@@ -1,5 +1,4 @@
 import * as random from './random.js';
-import extend from './extend.js';
 import forces from './forces.js';
 
 export default class Particle {
@@ -14,8 +13,8 @@ export default class Particle {
     }
 
     draw() {
-        ctx.fillStyle = 'rgb(0,0,0)';
-        ctx.fillRect(this.x, this.y, this.size, this.size);
+        this.ctx.fillStyle = 'rgb(0,0,0)';
+        this.ctx.fillRect(this.x, this.y, this.size, this.size);
     }
 
     update(dt) {
@@ -34,6 +33,6 @@ export default class Particle {
     }
 
     setProps(props) {
-        extend(this, props);
+        Object.assign(this, props);
     }
 }
