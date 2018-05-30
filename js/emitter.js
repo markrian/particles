@@ -14,7 +14,7 @@ export default class Emitter {
         this.x = x;
         this.y = y;
         this.msPerEmission = 1000 / frequency;
-        this.msToNextEmission = this.msPerEmission;
+        this.msToNextEmission = 0;
         this.speed = speed;
         this.particles = [];
         this.ctx = ctx;
