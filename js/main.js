@@ -15,9 +15,7 @@ function init() {
     windowEvents.resize();
 
     const world = new World(state, ctx);
-    window.world = world;
     const dt = 1000 / 60;
-    window.loop = loop;
 
     loop.start(
         () => world.update(dt),
