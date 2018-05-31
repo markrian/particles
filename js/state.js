@@ -6,6 +6,7 @@ export default {
     mouse: {
         x: 0,
         y: 0,
+        click: false,
         down: false,
         downStart: {
             x: null,

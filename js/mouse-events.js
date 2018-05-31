@@ -1,4 +1,5 @@
 import state from './state.js';
+import { near } from './collision.js';
 
 const DRAG_THRESHOLD = 20;
 
@@ -39,12 +40,15 @@ export default {
             state.mouse.downEnd.x = state.mouse.x;
             state.mouse.downEnd.y = state.mouse.y;
             state.activeItem = null;
+
+            if (
+                near(
+                    state.mouse.downStart.x, state.mouse.downStart.y,
+                    state.mouse.downEnd.x, state.mouse.downEnd.y
+                )
+            ) {
+                state.mouse.click = true;
+            }
         }
     },
-
-    click(event) {
-        if (event.button === 0) {
-            state.mouse.click = true;
-        }
-    }
 };
