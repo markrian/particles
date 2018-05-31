@@ -1,4 +1,5 @@
 import List from './list.js';
+import { drawReticle } from './canvas.js';
 
 const MASS_FACTOR = 100;
 
@@ -38,10 +39,13 @@ export class RadialForce {
     }
 
     update(dt, state) {
-        if (false) {
+        if (state.draggingItem === this) {
             this.x = state.mouse.x;
             this.y = state.mouse.y;
         }
+
+        this.hovered = state.hoveredItem === this;
+        this.selected = state.selectedItem === this;
     }
 
     resolve(particle, dt) {
@@ -65,6 +69,7 @@ export class RadialForce {
     }
 
     draw() {
+        const colour = this.hovered ? 160 : 127;
         const absMass = Math.abs(this.mass);
         const radialGradient = this.ctx.createRadialGradient(
             this.x,
@@ -74,10 +79,14 @@ export class RadialForce {
             this.y,
             absMass,
         );
-        const color = this.direction === -1 ? '0,127,0' : '127,0,0';
-        radialGradient.addColorStop(0, 'rgba(' + color + ',1)');
-        radialGradient.addColorStop(1, 'rgba(' + color + ',0)');
+        const rgb = this.direction === -1 ? `0,${colour},0` : `${colour},0,0`;
+        radialGradient.addColorStop(0, 'rgba(' + rgb + ',1)');
+        radialGradient.addColorStop(1, 'rgba(' + rgb + ',0)');
         this.ctx.fillStyle = radialGradient;
         this.ctx.fillRect(this.x - absMass, this.y - absMass, absMass * 2, absMass * 2);
+
+        if (this.selected) {
+            drawReticle(this.ctx, this.x, this.y);
+        }
     }
 }

@@ -35,7 +35,7 @@ export default class Emitter {
         this.hovered = state.hoveredItem === this;
         this.selected = state.selectedItem === this;
 
-        if (state.mouse.dragging && state.draggingItem === this) {
+        if (state.draggingItem === this) {
             this.x = state.mouse.x;
             this.y = state.mouse.y;
         }
