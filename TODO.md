@@ -14,4 +14,7 @@
  - Add config panels for things:
     - Emitters
     - RadialForces
+ - Improve drawings:
+    - Arrow for ConstantForce
+    - Radial gradiant for RadialForce sucks...
 
