@@ -39,7 +39,7 @@ export class RadialForce {
     }
 
     update(dt, state) {
-        if (state.draggingItem === this) {
+        if (state.mouse.dragging && state.draggingItem === this) {
             this.x = state.mouse.x;
             this.y = state.mouse.y;
         }

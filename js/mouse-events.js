@@ -1,7 +1,7 @@
 import state from './state.js';
 import { near } from './collision.js';
 
-const DRAG_THRESHOLD = 10;
+const DRAG_THRESHOLD = 5;
 
 export default {
     mousedown(event) {
