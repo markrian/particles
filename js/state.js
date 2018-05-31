@@ -19,5 +19,8 @@ export default {
         dragging: false,
     },
     paused: false,
+    draggingItem: null,
+    hoveredItem: null,
+    selectedItem: null,
 };
 

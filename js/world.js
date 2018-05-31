@@ -1,6 +1,7 @@
 import List from './list.js';
 import Emitter from './emitter.js';
 import forces, { RadialForce, ConstantForce } from './forces.js';
+import { near } from './collision.js';
 
 export default class World {
     constructor(state, ctx) {
@@ -17,21 +18,31 @@ export default class World {
             200, // Particle speed
             0,
             0,
+        ),
+        new Emitter(
+            ctx,
+            state.width / 2 - 100,
+            state.height / 2 + 150,
+            200, // Frequency
+            300, // Particle speed
+            3,
+            1
         ));
 
-        // this.forces.push(
-        //     new RadialForce(
-        //         this.ctx,
-        //         state.width / 2,
-        //         state.height / 2,
-        //         -160,
-        //     ),
-        //     // new ConstantForce(0, .5),
-        // );
+        this.forces.push(
+            new RadialForce(
+                this.ctx,
+                state.width / 2,
+                state.height / 2,
+                160,
+            ),
+            new ConstantForce(0, 5),
+        );
     }
 
     update(dt) {
-        this.setActiveItem();
+        this.setHoveredItem();
+        this.setDraggingItem();
         this.setSelectedItem();
         this.forces.call('update', dt, this.state);
         this.emitters.call('update', dt, this.state);
@@ -43,9 +54,50 @@ export default class World {
         this.emitters.call('draw');
     }
 
-    setActiveItem() {
+    setHoveredItem() {
+        for (const list of [this.emitters, this.forces]) {
+            for (const item of list) {
+                if (near(item.x, item.y, this.state.mouse.x, this.state.mouse.y)) {
+                    this.state.hoveredItem = item;
+                    return;
+                }
+            }
+        }
+
+        this.state.hoveredItem = null;
+    }
+
+    setDraggingItem() {
+        if (this.state.mouse.dragging) {
+            return;
+        }
+
+        for (const list of [this.emitters, this.forces]) {
+            for (const item of list) {
+                if (near(item.x, item.y, this.state.mouse.downStart.x, this.state.mouse.downStart.y)) {
+                    this.state.draggingItem = item;
+                    return;
+                }
+            }
+        }
+
+        this.state.draggingItem = null;
     }
 
     setSelectedItem() {
+        if (!this.state.mouse.click) {
+            return;
+        }
+
+        for (const list of [this.emitters, this.forces]) {
+            for (const item of list) {
+                if (near(item.x, item.y, this.state.mouse.downStart.x, this.state.mouse.downStart.y)) {
+                    this.state.selectedItem = item;
+                    return;
+                }
+            }
+        }
+
+        this.state.selectedItem = null;
     }
 }
