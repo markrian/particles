@@ -34,7 +34,17 @@ export default class Emitter {
         }
 
         this.hovered = near(this.x, this.y, state.mouse.x, state.mouse.y);
-        state.activeItem = this;
+
+        if (near(state.mouse.downStart.x, state.mouse.downStart.y, this.x, this.y)) {
+            state.activeItem = this;
+        }
+
+        if (
+            state.mouse.click &&
+            near(this.x, this.y, state.mouse.x, state.mouse.y)
+        ) {
+            state.selectedItem = this;
+        }
 
         if (state.mouse.dragging && state.activeItem === this) {
             this.x = state.mouse.x;

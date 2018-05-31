@@ -1,9 +1,13 @@
 import state from './state.js';
 
+const DRAG_THRESHOLD = 20;
+
 export default {
     mousedown(event) {
         if (event.button === 0) {
             state.mouse.down = true;
+            state.mouse.downStart.x = state.mouse.x;
+            state.mouse.downStart.y = state.mouse.y;
         }
     },
 
@@ -13,7 +17,18 @@ export default {
         state.mouse.y = event.pageY;
 
         if (state.mouse.down) {
-            state.mouse.dragging = true;
+            if (
+                Math.abs(state.mouse.downStart.x - state.mouse.x) > DRAG_THRESHOLD ||
+                Math.abs(state.mouse.downStart.y - state.mouse.y) > DRAG_THRESHOLD
+            ) {
+                state.mouse.dragging = true;
+            }
+        } else {
+            state.mouse.downStart.x = null;
+            state.mouse.downStart.y = null;
+            state.mouse.downEnd.x = null;
+            state.mouse.downEnd.y = null;
+            state.mouse.click = false;
         }
     },
 
@@ -21,6 +36,15 @@ export default {
         if (event.button === 0) {
             state.mouse.down = false;
             state.mouse.dragging = false;
+            state.mouse.downEnd.x = state.mouse.x;
+            state.mouse.downEnd.y = state.mouse.y;
+            state.activeItem = null;
         }
     },
+
+    click(event) {
+        if (event.button === 0) {
+            state.mouse.click = true;
+        }
+    }
 };
