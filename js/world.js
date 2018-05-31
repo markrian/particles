@@ -31,6 +31,8 @@ export default class World {
     }
 
     update(dt) {
+        this.setActiveItem();
+        this.setSelectedItem();
         this.forces.call('update', dt, this.state);
         this.emitters.call('update', dt, this.state);
     }
@@ -39,5 +41,11 @@ export default class World {
         this.ctx.clearRect(0, 0, this.state.width, this.state.height);
         this.forces.call('draw');
         this.emitters.call('draw');
+    }
+
+    setActiveItem() {
+    }
+
+    setSelectedItem() {
     }
 }
