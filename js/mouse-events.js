@@ -40,12 +40,7 @@ export default {
             state.mouse.downEnd.x = state.mouse.x;
             state.mouse.downEnd.y = state.mouse.y;
 
-            if (
-                near(
-                    state.mouse.downStart.x, state.mouse.downStart.y,
-                    state.mouse.downEnd.x, state.mouse.downEnd.y
-                )
-            ) {
+            if (near(state.mouse.downStart, state.mouse.downEnd)) {
                 state.mouse.click = true;
             }
         }

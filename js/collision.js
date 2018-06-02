@@ -1,11 +1,11 @@
-export function pointInRect(px, py, rx, ry, width, height) {
-    return px >= rx &&
-        py >= ry &&
-        px <= rx + width &&
-        py <= ry + height;
+export function pointInRect(p, rx, ry, width, height) {
+    return p.x >= rx &&
+        p.y >= ry &&
+        p.x <= rx + width &&
+        p.y <= ry + height;
 }
 
-export function near(x, y, ox, oy, distance = 20) {
-    return Math.abs(x - ox) < distance &&
-        Math.abs(y - oy) < distance;
+export function near(a, b, distance = 20) {
+    return Math.abs(a.x - b.x) < distance &&
+        Math.abs(a.y - b.y) < distance;
 }

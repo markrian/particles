@@ -57,7 +57,7 @@ export default class World {
     setHoveredItem() {
         for (const list of [this.emitters, this.forces]) {
             for (const item of list) {
-                if (near(item.x, item.y, this.state.mouse.x, this.state.mouse.y)) {
+                if (near(item, this.state.mouse)) {
                     this.state.hoveredItem = item;
                     return;
                 }
@@ -74,7 +74,7 @@ export default class World {
 
         for (const list of [this.emitters, this.forces]) {
             for (const item of list) {
-                if (near(item.x, item.y, this.state.mouse.downStart.x, this.state.mouse.downStart.y)) {
+                if (near(item, this.state.mouse.downStart)) {
                     this.state.draggingItem = item;
                     return;
                 }
@@ -91,7 +91,7 @@ export default class World {
 
         for (const list of [this.emitters, this.forces]) {
             for (const item of list) {
-                if (near(item.x, item.y, this.state.mouse.downStart.x, this.state.mouse.downStart.y)) {
+                if (near(item, this.state.mouse.downStart)) {
                     this.state.selectedItem = item;
                     return;
                 }

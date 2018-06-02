@@ -22,8 +22,7 @@ export default class Particle {
         forces.call('resolve', this, dt);
 
         this.inView = pointInRect(
-            this.x,
-            this.y,
+            this,
             -this.radius,
             -this.radius,
             state.width + 2 * this.radius,
