@@ -14,7 +14,7 @@ export default class Emitter {
     ) {
         this.x = x;
         this.y = y;
-        this.msPerEmission = 1000 / frequency;
+        this.frequency = frequency;
         this.msToNextEmission = 0;
         this.speed = speed;
         this.particles = [];
@@ -23,6 +23,10 @@ export default class Emitter {
         this.endAngle = endAngle;
         this.hovered = false;
         this.name = 'emitter';
+    }
+
+    get msPerEmission() {
+        return 1000 / this.frequency;
     }
 
     update(dt, state) {
