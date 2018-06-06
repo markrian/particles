@@ -11,6 +11,16 @@
             height="450"
             >
     </canvas>
+    <div id="constant-force-panel" class="panel panel-closed">
+        <h2>Constant force</h2>
+        <label>Strength <span id="constant-force-strength-value">0</span>
+            <input id="constant-force-strength" type="range" min="0" max="500" step="1" value="0">
+        </label>
+        <label>Angle <span id="constant-force-angle-value">0</span>
+            <input id="constant-force-angle" type="range" min="0" max="6.28" step="0.1" value="0">
+        </label>
+        <button class="close" type="button">Close</button>
+    </div>
     <div id="radial-force-panel" class="panel panel-closed">
         <h2>Radial force</h2>
         <label>Mass <span id="radial-force-mass-value">0</span>

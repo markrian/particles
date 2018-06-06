@@ -1,6 +1,7 @@
 export default class Panels {
     constructor() {
         this.panels = {
+            'constant-force': new ConstantForcePanel(),
             'radial-force': new RadialForcePanel(),
             'emitter': new EmitterPanel(),
         }
@@ -63,6 +64,19 @@ class Panel {
         this.item = null;
     }
 }
+
+class ConstantForcePanel extends Panel {
+    get name() {
+        return 'constant-force';
+    }
+}
+ConstantForcePanel.settings = [{
+    name: 'angle',
+    attr: 'angle',
+}, {
+    name: 'strength',
+    attr: 'strength',
+}];
 
 class RadialForcePanel extends Panel {
     get name() {

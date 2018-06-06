@@ -38,7 +38,7 @@ export default class World {
                 state.height / 2,
                 160,
             ),
-            new ConstantForce(0, 5),
+            new ConstantForce(ctx, 10, 10),
         );
     }
 

@@ -2,6 +2,7 @@ import List from './list.js';
 import { drawReticle } from './canvas.js';
 
 const MASS_FACTOR = 100;
+const HALF_PI = Math.PI / 2;
 
 class Forces extends List {
 }
@@ -13,12 +14,39 @@ export default new Forces();
 // dv/dt = F / m
 // dv = F*dt / m
 export class ConstantForce {
-    constructor(fx, fy) {
+    constructor(ctx, fx, fy) {
+        this.ctx = ctx;
+        this.x = 40;
+        this.y = 40;
         this.fx = fx;
         this.fy = fy;
+        this.name = 'constant-force';
+    }
+
+    get angle() {
+        if (this.fx === 0) return this.fy > 0 ? HALF_PI : -HALF_PI;
+        return Math.atan(this.fy / this.fx);
+    }
+
+    set angle(value) {
+        const strength = this.strength;
+        this.fx = strength * Math.cos(value);
+        this.fy = strength * Math.sin(value);
+    }
+
+    get strength() {
+        return Math.sqrt(this.fx * this.fx + this.fy * this.fy);
+    }
+
+    set strength(value) {
+        const angle = this.angle;
+        this.fx = value * Math.cos(angle);
+        this.fy = value * Math.sin(angle);
     }
 
     update(dt, state) {
+        this.hovered = state.hoveredItem === this;
+        this.selected = state.selectedItem === this;
     }
 
     resolve(particle, dt) {
@@ -27,6 +55,33 @@ export class ConstantForce {
     }
 
     draw() {
+        const F = 3;
+        const length = F * this.strength;
+        const headSize = Math.max(3, length / 10);
+
+        this.ctx.save();
+
+        this.ctx.translate(this.x, this.y);
+        this.ctx.rotate(this.angle);
+
+        this.ctx.beginPath();
+
+        this.ctx.moveTo(-length / 2, 0);
+        this.ctx.lineTo(length / 2, 0);
+        this.ctx.translate(length / 2, 0);
+        // this.ctx.moveTo(0, 0);
+        this.ctx.lineTo(-headSize, -headSize);
+        this.ctx.moveTo(0, 0);
+        this.ctx.lineTo(-headSize, headSize);
+
+        this.ctx.strokeStyle = this.hovered ? 'red' : 'black';
+        this.ctx.stroke();
+
+        this.ctx.restore();
+
+        if (this.selected) {
+            drawReticle(this.ctx, this.x, this.y);
+        }
     }
 }
 
