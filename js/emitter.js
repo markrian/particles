@@ -63,6 +63,7 @@ export default class Emitter {
     }
 
     emit(dt) {
+        this.msToNextEmission = Math.min(this.msPerEmission, this.msToNextEmission);
         if (this.msPerEmission < dt) {
             let elapsed = 0;
             while (elapsed < dt) {
