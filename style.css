@@ -27,6 +27,15 @@ body {
     transition: transform 1s ease;
 }
 
+label {
+    display: block;
+    overflow: hidden;
+}
+
+label input {
+    float: right;
+}
+
 .panel-closed {
     transform: translateX(100%);
 }

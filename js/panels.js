@@ -60,12 +60,16 @@ class EmitterPanel {
         this.el = document.getElementById('emitter-panel');
         this.item = null;
         this.onSpeedChange = this.onSpeedChange.bind(this);
+        this.onStartAngleChange = this.onStartAngleChange.bind(this);
+        this.onEndAngleChange = this.onEndAngleChange.bind(this);
 
         this.bindControls();
     }
 
     bindControls() {
         this.el.querySelector('#emitter-speed').addEventListener('input', this.onSpeedChange);
+        this.el.querySelector('#emitter-start-angle').addEventListener('input', this.onStartAngleChange);
+        this.el.querySelector('#emitter-end-angle').addEventListener('input', this.onEndAngleChange);
         this.el.querySelector('button.close').addEventListener('click', () => this.close());
     }
 
@@ -78,6 +82,28 @@ class EmitterPanel {
 
         this.el.querySelector('#emitter-speed-value').textContent = speed;
         this.item.speed = speed;
+    }
+
+    onStartAngleChange(event) {
+        if (this.item === null) {
+            return;
+        }
+
+        const angle = event.target.value;
+
+        this.el.querySelector('#emitter-start-angle-value').textContent = angle;
+        this.item.startAngle = angle;
+    }
+
+    onEndAngleChange(event) {
+        if (this.item === null) {
+            return;
+        }
+
+        const angle = event.target.value;
+
+        this.el.querySelector('#emitter-end-angle-value').textContent = angle;
+        this.item.endAngle = angle;
     }
 
     open(item) {
