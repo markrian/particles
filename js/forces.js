@@ -36,6 +36,7 @@ export class RadialForce {
         this.x = x;
         this.y = y;
         this.mass = mass;
+        this.name = 'radial-force';
     }
 
     update(dt, state) {

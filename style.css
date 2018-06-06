@@ -7,9 +7,26 @@ html, body {
 
 body {
     background: silver;
+    overflow: hidden;
 }
 
 #view {
     background: white;
     display: block;
+}
+
+.panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.15);
+
+    padding: 10px;
+    transition: transform 1s ease;
+}
+
+.panel-closed {
+    transform: translateX(100%);
 }

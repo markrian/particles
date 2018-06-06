@@ -2,6 +2,7 @@ import List from './list.js';
 import Emitter from './emitter.js';
 import forces, { RadialForce, ConstantForce } from './forces.js';
 import { near } from './collision.js';
+import Panels from './panels.js';
 
 export default class World {
     constructor(state, ctx) {
@@ -9,6 +10,7 @@ export default class World {
         this.ctx = ctx;
         this.forces = forces;
         this.emitters = new List();
+        this.panels = new Panels();
 
         this.emitters.push(new Emitter(
             ctx,
@@ -93,11 +95,13 @@ export default class World {
             for (const item of list) {
                 if (near(item, this.state.mouse.downStart)) {
                     this.state.selectedItem = item;
+                    this.panels.open(item);
                     return;
                 }
             }
         }
 
         this.state.selectedItem = null;
+        this.panels.close();
     }
 }
