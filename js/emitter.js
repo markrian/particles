@@ -22,6 +22,7 @@ export default class Emitter {
         this.startAngle = startAngle;
         this.endAngle = endAngle;
         this.hovered = false;
+        this.name = 'emitter';
     }
 
     update(dt, state) {
