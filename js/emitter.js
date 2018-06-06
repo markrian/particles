@@ -67,18 +67,18 @@ export default class Emitter {
         if (this.msPerEmission < dt) {
             let elapsed = 0;
             while (elapsed < dt) {
-                this._emit();
+                this._emitOne();
                 elapsed += this.msPerEmission;
             }
         } else if (this.msToNextEmission <= 0) {
-            this._emit();
+            this._emitOne();
             this.msToNextEmission = this.msPerEmission;
         } else {
             this.msToNextEmission -= dt;
         }
     }
 
-    _emit() {
+    _emitOne() {
         const angle = random.betweenFloat(this.startAngle, this.endAngle);
 
         const particle = new Particle(
