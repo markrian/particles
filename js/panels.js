@@ -1,4 +1,3 @@
-
 export default class Panels {
     constructor() {
         this.panels = {
@@ -19,34 +18,44 @@ export default class Panels {
     }
 }
 
-class RadialForcePanel {
+class Panel {
     constructor() {
-        this.el = document.getElementById('radial-force-panel');
+        this.el = document.getElementById(`${this.name}-panel`);
         this.item = null;
-        this.onMassChange = this.onMassChange.bind(this);
-
+        this.settings = this.constructor.settings.map(setting => ({ ...setting }));
         this.bindControls();
     }
 
-    bindControls() {
-        this.el.querySelector('#radial-force-mass').addEventListener('input', this.onMassChange);
-        this.el.querySelector('button.close').addEventListener('click', () => this.close());
+    get name() {
+        throw new Error('must be overridden');
     }
 
-    onMassChange(event) {
-        if (this.item === null) {
-            return;
+    bindControls() {
+        for (const setting of this.settings) {
+            setting.inputEl = this.el.querySelector(
+                `#${this.name}-${setting.name}`
+            );
+
+            setting.valueEl = this.el.querySelector(
+                `#${this.name}-${setting.name}-value`
+            );
+
+            setting.inputEl.addEventListener('input', event => {
+                if (this.item === null) {
+                    return;
+                }
+
+                this.item[setting.attr] = setting.valueEl.textContent = Number(event.target.value);
+            });
         }
-
-        const mass = event.target.value;
-
-        this.el.querySelector('#radial-force-mass-value').textContent = mass;
-        this.item.mass = mass;
     }
 
     open(item) {
         this.el.classList.toggle('panel-closed', false);
         this.item = item;
+        for (const setting of this.settings) {
+            setting.valueEl.textContent = setting.inputEl.value = item[setting.attr];
+        }
     }
 
     close() {
@@ -55,64 +64,31 @@ class RadialForcePanel {
     }
 }
 
-class EmitterPanel {
-    constructor() {
-        this.el = document.getElementById('emitter-panel');
-        this.item = null;
-        this.onSpeedChange = this.onSpeedChange.bind(this);
-        this.onStartAngleChange = this.onStartAngleChange.bind(this);
-        this.onEndAngleChange = this.onEndAngleChange.bind(this);
-
-        this.bindControls();
-    }
-
-    bindControls() {
-        this.el.querySelector('#emitter-speed').addEventListener('input', this.onSpeedChange);
-        this.el.querySelector('#emitter-start-angle').addEventListener('input', this.onStartAngleChange);
-        this.el.querySelector('#emitter-end-angle').addEventListener('input', this.onEndAngleChange);
-        this.el.querySelector('button.close').addEventListener('click', () => this.close());
-    }
-
-    onSpeedChange(event) {
-        if (this.item === null) {
-            return;
-        }
-
-        const speed = event.target.value;
-
-        this.el.querySelector('#emitter-speed-value').textContent = speed;
-        this.item.speed = speed;
-    }
-
-    onStartAngleChange(event) {
-        if (this.item === null) {
-            return;
-        }
-
-        const angle = event.target.value;
-
-        this.el.querySelector('#emitter-start-angle-value').textContent = angle;
-        this.item.startAngle = angle;
-    }
-
-    onEndAngleChange(event) {
-        if (this.item === null) {
-            return;
-        }
-
-        const angle = event.target.value;
-
-        this.el.querySelector('#emitter-end-angle-value').textContent = angle;
-        this.item.endAngle = angle;
-    }
-
-    open(item) {
-        this.el.classList.toggle('panel-closed', false);
-        this.item = item;
-    }
-
-    close() {
-        this.el.classList.toggle('panel-closed', true);
-        this.item = null;
+class RadialForcePanel extends Panel {
+    get name() {
+        return 'radial-force';
     }
 }
+RadialForcePanel.settings = [{
+    name: 'mass',
+    attr: 'mass',
+}];
+
+class EmitterPanel extends Panel {
+    get name() {
+        return 'emitter';
+    }
+}
+EmitterPanel.settings = [{
+    name: 'speed',
+    attr: 'speed',
+}, {
+    name: 'start-angle',
+    attr: 'startAngle',
+}, {
+    name: 'frequency',
+    attr: 'frequency',
+}, {
+    name: 'end-angle',
+    attr: 'endAngle',
+}];

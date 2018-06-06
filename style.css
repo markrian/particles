@@ -24,7 +24,7 @@ body {
     background-color: rgba(0, 0, 0, 0.15);
 
     padding: 10px;
-    transition: transform 1s ease;
+    transition: transform .2s ease;
 }
 
 label {
