@@ -79,7 +79,7 @@ export class RadialForce {
             this.y,
             absMass,
         );
-        const rgb = this.direction === -1 ? `0,${colour},0` : `${colour},0,0`;
+        const rgb = this.mass >= 0 ? `0,${colour},0` : `${colour},0,0`;
         radialGradient.addColorStop(0, 'rgba(' + rgb + ',1)');
         radialGradient.addColorStop(1, 'rgba(' + rgb + ',0)');
         this.ctx.fillStyle = radialGradient;
