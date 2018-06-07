@@ -13,35 +13,48 @@
     </canvas>
     <div id="constant-force-panel" class="panel panel-closed">
         <h2>Constant force</h2>
-        <label>Strength <span id="constant-force-strength-value">0</span>
-            <input id="constant-force-strength" type="range" min="0" max="500" step="1" value="0">
-        </label>
-        <label>Angle <span id="constant-force-angle-value">0</span>
-            <input id="constant-force-angle" type="range" min="0" max="6.28" step="0.1" value="0">
-        </label>
+        <div class="panel-settings">
+            <label>
+                <span class="label-text">Strength <span id="constant-force-strength-value">0</span></span>
+                <input id="constant-force-strength" type="range" min="0" max="500" step="1" value="0">
+            </label>
+            <label>
+                <span class="label-text">Angle <span id="constant-force-angle-value">0</span></span>
+                <input id="constant-force-angle" type="range" min="0" max="6.28" step="0.1" value="0">
+            </label>
+        </div>
         <button class="close" type="button">Close</button>
     </div>
     <div id="radial-force-panel" class="panel panel-closed">
         <h2>Radial force</h2>
-        <label>Mass <span id="radial-force-mass-value">0</span>
-            <input id="radial-force-mass" type="range" min="-500" max="500" step="1" value="0">
-        </label>
+        <div class="panel-settings">
+            <label>
+                <span class="label-text">Mass <span id="radial-force-mass-value">0</span></span>
+                <input id="radial-force-mass" type="range" min="-500" max="500" step="1" value="0">
+            </label>
+        </div>
         <button class="close" type="button">Close</button>
     </div>
-    <div id="emitter-panel" class="panel panel-closed">
+    <div id="emitter-panel" class="panel">
         <h2>Emitter</h2>
-        <label>Frequency <span id="emitter-frequency-value">60</span>
-            <input id="emitter-frequency" type="range" min="0" max="500" step="1" value="60">
-        </label>
-        <label>Speed <span id="emitter-speed-value">100</span>
-            <input id="emitter-speed" type="range" min="0" max="500" step="1" value="100">
-        </label>
-        <label>Start angle <span id="emitter-start-angle-value">0</span>
-            <input id="emitter-start-angle" type="range" min="0" max="6.28" step="0.1" value="0">
-        </label>
-        <label>End angle <span id="emitter-end-angle-value">1</span>
-            <input id="emitter-end-angle" type="range" min="0" max="6.28" step="0.1" value="1">
-        </label>
+        <div class="panel-settings">
+            <label>
+                <span class="label-text">Frequency <span id="emitter-frequency-value">60</span></span>
+                <input id="emitter-frequency" type="range" min="0" max="500" step="1" value="60">
+            </label>
+            <label>
+                <span class="label-text">Speed <span id="emitter-speed-value">100</span></span>
+                <input id="emitter-speed" type="range" min="0" max="500" step="1" value="100">
+            </label>
+            <label>
+                <span class="label-text">Start angle <span id="emitter-start-angle-value">0</span></span>
+                <input id="emitter-start-angle" type="range" min="0" max="6.28" step="0.1" value="0">
+            </label>
+            <label>
+                <span class="label-text">End angle <span id="emitter-end-angle-value">1</span></span>
+                <input id="emitter-end-angle" type="range" min="0" max="6.28" step="0.1" value="1">
+            </label>
+        </div>
         <button class="close" type="button">Close</button>
     </div>
     <script src="js/main.js" type="module"></script>
