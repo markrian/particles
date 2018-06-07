@@ -6,6 +6,7 @@
  / Make things draggable:
     / Emitters
     / RadialForces
+    / ConstantForce
     / Fix bug where clicking on any item drags it a bit
  / Make things selectable:
     / Emitters

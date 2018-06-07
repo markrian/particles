@@ -44,6 +44,11 @@ export class ConstantForce {
     }
 
     update(dt, state) {
+        if (state.mouse.dragging && state.draggingItem === this) {
+            this.x = state.mouse.x;
+            this.y = state.mouse.y;
+        }
+
         this.hovered = state.hoveredItem === this;
         this.selected = state.selectedItem === this;
     }
