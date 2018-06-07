@@ -49,4 +49,4 @@
     - Panels fill screen
  - Add help panel/window:
     - Open via button
-    - Open via '?'
+    / Open via '?'

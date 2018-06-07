@@ -26,6 +26,7 @@ export default class World {
 
     update(dt) {
         this.addItems();
+        this.showHelp();
         this.setHoveredItem();
         this.setDraggingItem();
         this.setSelectedItem();
@@ -69,6 +70,12 @@ export default class World {
                 random.between(10, this.state.width - 10),
                 random.between(10, this.state.height - 10),
             ));
+        }
+    }
+
+    showHelp() {
+        if (this.state.keys.pressed['?']) {
+            document.querySelector('.help').classList.toggle('help-closed');
         }
     }
 
