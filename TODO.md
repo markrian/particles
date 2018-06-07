@@ -40,3 +40,10 @@
    ax * dt, or vx += ax * dt / 1000?)
  / Rename collision.js to geometry.js
  - Make items movable with arrow keys
+ - Make buttons to add:
+    - Emitters
+    - RadialForces
+    - ConstantForce
+ - Make it work on mobile:
+    - Touch events
+    - Panels fill screen
