@@ -9,8 +9,8 @@ export default class Emitter {
         y,
         frequency,
         speed,
-        startAngle,
-        endAngle
+        angle,
+        spread
     ) {
         this.world = world;
         this.x = x;
@@ -22,8 +22,8 @@ export default class Emitter {
         this.secondsToNextEmission = 0;
         this.speed = speed;
         this.particles = [];
-        this.startAngle = startAngle;
-        this.endAngle = endAngle;
+        this.angle = angle;
+        this.spread = spread;
         this.hovered = false;
         this.name = 'emitter';
     }
@@ -91,7 +91,10 @@ export default class Emitter {
     }
 
     _emitOne() {
-        const angle = random.betweenFloat(this.startAngle, this.endAngle);
+        const angle = random.betweenFloat(
+            this.angle - this.spread / 2,
+            this.angle + this.spread / 2,
+        );
 
         const vx = this.speed * Math.cos(angle) + this.vx;
         const vy = this.speed * Math.sin(angle) + this.vy;

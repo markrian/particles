@@ -130,12 +130,12 @@ EmitterPanel.settings = [{
     name: 'speed',
     attr: 'speed',
 }, {
-    name: 'start-angle',
-    attr: 'startAngle',
-}, {
     name: 'frequency',
     attr: 'frequency',
 }, {
-    name: 'end-angle',
-    attr: 'endAngle',
+    name: 'angle',
+    attr: 'angle',
+}, {
+    name: 'spread',
+    attr: 'spread',
 }];
