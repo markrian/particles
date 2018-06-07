@@ -32,7 +32,7 @@
         - RadialForces
         - ConstantForce
  - Change Emitter start/end angle to angle and spread
- - Add velocity to emitters, and add it to emitted particles
+ / Add velocity to emitters, and add it to emitted particles
  - Make angles in panel degrees
  - Make click detection track distance traveled, rather than comparing
    start/end points?

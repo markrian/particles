@@ -15,6 +15,9 @@ export default class Emitter {
         this.world = world;
         this.x = x;
         this.y = y;
+        this.oldPos = { x, y };
+        this.vx = 0;
+        this.vy = 0;
         this.frequency = frequency;
         this.msToNextEmission = 0;
         this.speed = speed;
@@ -34,6 +37,12 @@ export default class Emitter {
     }
 
     update(dt, state) {
+        const delta_t = dt / 1000;
+        this.vx = (this.x - this.oldPos.x) / delta_t;
+        this.vy = (this.y - this.oldPos.y) / delta_t;
+        this.oldPos.x = this.x;
+        this.oldPos.y = this.y;
+
         this.emit(dt);
 
         let i = this.particles.length;
@@ -85,13 +94,16 @@ export default class Emitter {
     _emitOne() {
         const angle = random.betweenFloat(this.startAngle, this.endAngle);
 
+        const vx = this.speed * Math.cos(angle) + this.vx;
+        const vy = this.speed * Math.sin(angle) + this.vy;
+
         const particle = new Particle(
             this.world.ctx,
             this.particles,
             this.x,
             this.y,
-            this.speed * Math.cos(angle),
-            this.speed * Math.sin(angle),
+            vx,
+            vy,
         );
 
         this.particles.push(particle);
