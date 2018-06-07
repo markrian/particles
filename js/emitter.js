@@ -37,6 +37,14 @@ export default class Emitter {
     }
 
     update(dt, state) {
+        this.hovered = state.hoveredItem === this;
+        this.selected = state.selectedItem === this;
+
+        if (state.keys.pressed.d && this.selected) {
+            this.remove();
+            return;
+        }
+
         this.vx = (this.x - this.oldPos.x) / dt;
         this.vy = (this.y - this.oldPos.y) / dt;
         this.oldPos.x = this.x;
@@ -48,9 +56,6 @@ export default class Emitter {
         while (i-- > 0) {
             this.particles[i].update(dt, state, i);
         }
-
-        this.hovered = state.hoveredItem === this;
-        this.selected = state.selectedItem === this;
 
         if (state.mouse.dragging && state.draggingItem === this) {
             this.x = state.mouse.x;

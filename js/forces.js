@@ -48,13 +48,18 @@ export class ConstantForce {
     }
 
     update(dt, state) {
+        this.hovered = state.hoveredItem === this;
+        this.selected = state.selectedItem === this;
+
+        if (state.keys.pressed.d && this.selected) {
+            this.remove();
+            return;
+        }
+
         if (state.mouse.dragging && state.draggingItem === this) {
             this.x = state.mouse.x;
             this.y = state.mouse.y;
         }
-
-        this.hovered = state.hoveredItem === this;
-        this.selected = state.selectedItem === this;
     }
 
     resolve(particle, dt) {
@@ -106,13 +111,18 @@ export class RadialForce {
     }
 
     update(dt, state) {
+        this.hovered = state.hoveredItem === this;
+        this.selected = state.selectedItem === this;
+
+        if (state.keys.pressed.d && this.selected) {
+            this.remove();
+            return;
+        }
+
         if (state.mouse.dragging && state.draggingItem === this) {
             this.x = state.mouse.x;
             this.y = state.mouse.y;
         }
-
-        this.hovered = state.hoveredItem === this;
-        this.selected = state.selectedItem === this;
     }
 
     resolve(particle, dt) {

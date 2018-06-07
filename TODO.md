@@ -27,10 +27,10 @@
         / Emitters
         / RadialForces
         / ConstantForce
-    - from keyboard:
-        - Emitters
-        - RadialForces
-        - ConstantForce
+    / from keyboard:
+        / Emitters
+        / RadialForces
+        / ConstantForce
  / Change Emitter start/end angle to angle and spread
  / Add velocity to emitters, and add it to emitted particles
  / Make angles in panel degrees
