@@ -3,7 +3,7 @@ import loop from './game-loop.js';
 
 export default {
     keydown(event) {
-        if (event.key === 'p' && !state.keys.p) {
+        if (event.key === 'p' && !state.keys.live.p) {
             state.paused = !state.paused;
             if (state.paused) {
                 loop.pause();
@@ -12,10 +12,10 @@ export default {
             }
         }
 
-        state.keys[event.key] = true;
+        state.keys.live[event.key] = true;
     },
 
     keyup(event) {
-        state.keys[event.key] = false;
+        state.keys.live[event.key] = false;
     },
 };

@@ -1,3 +1,5 @@
+const dt = 1000 / 60;
+
 class GameLoop {
     constructor() {
         this.frameId = 0;
@@ -9,7 +11,7 @@ class GameLoop {
 
         this.loop = () => {
             this.frameId = requestAnimationFrame(this.loop);
-            update();
+            update(dt);
             draw();
         };
 

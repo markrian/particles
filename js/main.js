@@ -15,10 +15,20 @@ function init() {
     windowEvents.resize();
 
     const world = new World(state, ctx);
-    const dt = 1000 / 60;
 
     loop.start(
-        () => world.update(dt),
+        dt => {
+            state.keys.pressed = {};
+            for (const key in state.keys.live) {
+                if (state.keys.live[key]) {
+                    state.keys.pressed[key] = !state.keys.old[key];
+                }
+            }
+
+            state.keys.old = { ...state.keys.live };
+
+            world.update(dt);
+        },
         () => world.draw(),
     );
 }

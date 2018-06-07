@@ -4,7 +4,7 @@ import { drawDisc, drawReticle } from './canvas.js';
 
 export default class Emitter {
     constructor(
-        ctx,
+        world,
         x,
         y,
         frequency,
@@ -12,13 +12,13 @@ export default class Emitter {
         startAngle,
         endAngle
     ) {
+        this.world = world;
         this.x = x;
         this.y = y;
         this.frequency = frequency;
         this.msToNextEmission = 0;
         this.speed = speed;
         this.particles = [];
-        this.ctx = ctx;
         this.startAngle = startAngle;
         this.endAngle = endAngle;
         this.hovered = false;
@@ -27,6 +27,10 @@ export default class Emitter {
 
     get msPerEmission() {
         return 1000 / this.frequency;
+    }
+
+    remove() {
+        this.world.remove(this);
     }
 
     update(dt, state) {
@@ -48,17 +52,17 @@ export default class Emitter {
 
     draw() {
         if (this.hovered) {
-            drawDisc(this.ctx, this.x, this.y, 15, 'rgba(12,230,240,.3)');
+            drawDisc(this.world.ctx, this.x, this.y, 15, 'rgba(12,230,240,.3)');
         }
 
-        drawDisc(this.ctx, this.x, this.y, 2.5, 'blue');
+        drawDisc(this.world.ctx, this.x, this.y, 2.5, 'blue');
 
         for (const particle of this.particles) {
             particle.draw();
         }
 
         if (this.selected) {
-            drawReticle(this.ctx, this.x, this.y);
+            drawReticle(this.world.ctx, this.x, this.y);
         }
     }
 
@@ -82,7 +86,7 @@ export default class Emitter {
         const angle = random.betweenFloat(this.startAngle, this.endAngle);
 
         const particle = new Particle(
-            this.ctx,
+            this.world.ctx,
             this.particles,
             this.x,
             this.y,

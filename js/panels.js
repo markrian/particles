@@ -61,6 +61,7 @@ class Panel {
             });
         }
 
+        this.el.querySelector('button.delete').addEventListener('click', () => this.deleteItem());
         this.el.querySelector('button.close').addEventListener('click', () => this.close());
     }
 
@@ -86,6 +87,14 @@ class Panel {
             mouseup: stopPropagation,
             mousemove: stopPropagation,
         });
+    }
+
+    deleteItem() {
+        if (this.item === null) {
+            return;
+        }
+
+        this.item.remove();
     }
 }
 

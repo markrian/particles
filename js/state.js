@@ -2,6 +2,12 @@ export default {
     width: 640,
     height: 480,
     keys: {
+        live: {
+        },
+        old: {
+        },
+        pressed: {
+        },
     },
     mouse: {
         x: 0,

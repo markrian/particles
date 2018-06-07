@@ -14,8 +14,8 @@ export default new Forces();
 // dv/dt = F / m
 // dv = F*dt / m
 export class ConstantForce {
-    constructor(ctx, angle, strength, x = 40, y = 40) {
-        this.ctx = ctx;
+    constructor(world, angle, strength, x = 40, y = 40) {
+        this.world = world;
         this.x = x;
         this.y = y;
         this.angle = angle;
@@ -43,6 +43,10 @@ export class ConstantForce {
         this.fy = this._strength * Math.sin(this._angle);
     }
 
+    remove() {
+        this.world.remove(this);
+    }
+
     update(dt, state) {
         if (state.mouse.dragging && state.draggingItem === this) {
             this.x = state.mouse.x;
@@ -63,39 +67,43 @@ export class ConstantForce {
         const length = F * this.strength;
         const headSize = Math.max(3, length / 10);
 
-        this.ctx.save();
+        this.world.ctx.save();
 
-        this.ctx.translate(this.x, this.y);
-        this.ctx.rotate(this.angle);
+        this.world.ctx.translate(this.x, this.y);
+        this.world.ctx.rotate(this.angle);
 
-        this.ctx.beginPath();
+        this.world.ctx.beginPath();
 
-        this.ctx.moveTo(-length / 2, 0);
-        this.ctx.lineTo(length / 2, 0);
-        this.ctx.translate(length / 2, 0);
-        // this.ctx.moveTo(0, 0);
-        this.ctx.lineTo(-headSize, -headSize);
-        this.ctx.moveTo(0, 0);
-        this.ctx.lineTo(-headSize, headSize);
+        this.world.ctx.moveTo(-length / 2, 0);
+        this.world.ctx.lineTo(length / 2, 0);
+        this.world.ctx.translate(length / 2, 0);
+        // this.world.ctx.moveTo(0, 0);
+        this.world.ctx.lineTo(-headSize, -headSize);
+        this.world.ctx.moveTo(0, 0);
+        this.world.ctx.lineTo(-headSize, headSize);
 
-        this.ctx.strokeStyle = this.hovered ? 'red' : 'black';
-        this.ctx.stroke();
+        this.world.ctx.strokeStyle = this.hovered ? 'red' : 'black';
+        this.world.ctx.stroke();
 
-        this.ctx.restore();
+        this.world.ctx.restore();
 
         if (this.selected) {
-            drawReticle(this.ctx, this.x, this.y);
+            drawReticle(this.world.ctx, this.x, this.y);
         }
     }
 }
 
 export class RadialForce {
-    constructor(ctx, x, y, mass) {
-        this.ctx = ctx;
+    constructor(world, x, y, mass) {
+        this.world = world;
         this.x = x;
         this.y = y;
         this.mass = mass;
         this.name = 'radial-force';
+    }
+
+    remove() {
+        this.world.remove(this);
     }
 
     update(dt, state) {
@@ -131,7 +139,7 @@ export class RadialForce {
     draw() {
         const colour = this.hovered ? 160 : 127;
         const absMass = Math.abs(this.mass);
-        const radialGradient = this.ctx.createRadialGradient(
+        const radialGradient = this.world.ctx.createRadialGradient(
             this.x,
             this.y,
             0,
@@ -142,11 +150,11 @@ export class RadialForce {
         const rgb = this.mass >= 0 ? `0,${colour},0` : `${colour},0,0`;
         radialGradient.addColorStop(0, 'rgba(' + rgb + ',1)');
         radialGradient.addColorStop(1, 'rgba(' + rgb + ',0)');
-        this.ctx.fillStyle = radialGradient;
-        this.ctx.fillRect(this.x - absMass, this.y - absMass, absMass * 2, absMass * 2);
+        this.world.ctx.fillStyle = radialGradient;
+        this.world.ctx.fillRect(this.x - absMass, this.y - absMass, absMass * 2, absMass * 2);
 
         if (this.selected) {
-            drawReticle(this.ctx, this.x, this.y);
+            drawReticle(this.world.ctx, this.x, this.y);
         }
     }
 }

@@ -14,7 +14,7 @@ export default class World {
         this.panels = new Panels();
 
         this.emitters.push(new Emitter(
-            ctx,
+            this,
             state.width / 2,
             state.height / 2,
             10, // Frequency
@@ -40,9 +40,9 @@ export default class World {
     }
 
     addItems() {
-        if (this.state.keys.e) {
+        if (this.state.keys.pressed.e) {
             this.emitters.push(new Emitter(
-                this.ctx,
+                this,
                 random.between(10, this.state.width - 10),
                 random.between(10, this.state.height - 10),
                 10, // Frequency
@@ -52,18 +52,18 @@ export default class World {
             ));
         }
 
-        if (this.state.keys.r) {
+        if (this.state.keys.pressed.r) {
             this.forces.push(new RadialForce(
-                this.ctx,
+                this,
                 random.between(10, this.state.width - 10),
                 random.between(10, this.state.height - 10),
                 160,
             ));
         }
 
-        if (this.state.keys.c) {
+        if (this.state.keys.pressed.c) {
             this.forces.push(new ConstantForce(
-                this.ctx,
+                this,
                 Math.PI / 4,
                 10,
                 random.between(10, this.state.width - 10),
@@ -119,5 +119,10 @@ export default class World {
 
         this.state.selectedItem = null;
         this.panels.close();
+    }
+
+    remove(item) {
+        this.emitters.remove(item);
+        this.forces.remove(item);
     }
 }
