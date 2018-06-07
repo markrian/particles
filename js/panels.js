@@ -25,6 +25,7 @@ class Panel {
         this.item = null;
         this.settings = this.constructor.settings.map(setting => ({ ...setting }));
         this.bindControls();
+        this.stopEventPropagation();
     }
 
     get name() {
@@ -62,6 +63,16 @@ class Panel {
     close() {
         this.el.classList.toggle('panel-closed', true);
         this.item = null;
+    }
+
+    stopEventPropagation() {
+        const stopPropagation = event => event.stopPropagation();
+
+        bindEvents(this.el, {
+            mousedown: stopPropagation,
+            mouseup: stopPropagation,
+            mousemove: stopPropagation,
+        });
     }
 }
 
