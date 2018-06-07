@@ -65,7 +65,7 @@ export default class World {
             this.forces.push(new ConstantForce(
                 this,
                 Math.PI / 4,
-                10,
+                1000,
                 random.between(10, this.state.width - 10),
                 random.between(10, this.state.height - 10),
             ));

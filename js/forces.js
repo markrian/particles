@@ -1,7 +1,7 @@
 import List from './list.js';
 import { drawReticle } from './canvas.js';
 
-const MASS_FACTOR = 100;
+const MASS_FACTOR = 50000;
 const HALF_PI = Math.PI / 2;
 
 class Forces extends List {
@@ -63,8 +63,8 @@ export class ConstantForce {
     }
 
     draw() {
-        const F = 3;
-        const length = F * this.strength;
+        const STRENGTH_FACTOR = .025;
+        const length = STRENGTH_FACTOR * this.strength;
         const headSize = Math.max(3, length / 10);
 
         this.world.ctx.save();
