@@ -1,6 +1,6 @@
  - Make a particle pool, so that emitters don't just accrue more and more
    particles if they never go off-screen
- - Make things hoverable:
+ / Make things hoverable:
     / Emitters
     / RadialForces
     / ConstantForce
@@ -14,7 +14,7 @@
     / RadialForces
     / ConstantForce
     - Add pulsing animation for selected item
- - Add config panels for things:
+ / Add config panels for things:
     / Emitters
     / RadialForces
     / ConstantForce
