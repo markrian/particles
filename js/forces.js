@@ -14,34 +14,33 @@ export default new Forces();
 // dv/dt = F / m
 // dv = F*dt / m
 export class ConstantForce {
-    constructor(ctx, fx, fy) {
+    constructor(ctx, angle, strength) {
         this.ctx = ctx;
         this.x = 40;
         this.y = 40;
-        this.fx = fx;
-        this.fy = fy;
+        this.angle = angle;
+        this.strength = strength;
         this.name = 'constant-force';
     }
 
     get angle() {
-        if (this.fx === 0) return this.fy > 0 ? HALF_PI : -HALF_PI;
-        return Math.atan(this.fy / this.fx);
+        return this._angle;
     }
 
     set angle(value) {
-        const strength = this.strength;
-        this.fx = strength * Math.cos(value);
-        this.fy = strength * Math.sin(value);
+        this._angle = value;
+        this.fx = this._strength * Math.cos(this._angle);
+        this.fy = this._strength * Math.sin(this._angle);
     }
 
     get strength() {
-        return Math.sqrt(this.fx * this.fx + this.fy * this.fy);
+        return this._strength;
     }
 
     set strength(value) {
-        const angle = this.angle;
-        this.fx = value * Math.cos(angle);
-        this.fy = value * Math.sin(angle);
+        this._strength = value;
+        this.fx = this._strength * Math.cos(this._angle);
+        this.fy = this._strength * Math.sin(this._angle);
     }
 
     update(dt, state) {
