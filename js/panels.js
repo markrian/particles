@@ -50,6 +50,8 @@ class Panel {
                 this.item[setting.attr] = setting.valueEl.textContent = Number(event.target.value);
             });
         }
+
+        this.el.querySelector('button.close').addEventListener('click', () => this.close());
     }
 
     open(item) {
