@@ -1,6 +1,7 @@
 import List from './list.js';
 import Emitter from './emitter.js';
 import forces, { RadialForce, ConstantForce } from './forces.js';
+import * as random from './random.js';
 import { near } from './collision.js';
 import Panels from './panels.js';
 
@@ -24,6 +25,7 @@ export default class World {
     }
 
     update(dt) {
+        this.addItems();
         this.setHoveredItem();
         this.setDraggingItem();
         this.setSelectedItem();
@@ -35,6 +37,39 @@ export default class World {
         this.ctx.clearRect(0, 0, this.state.width, this.state.height);
         this.forces.call('draw');
         this.emitters.call('draw');
+    }
+
+    addItems() {
+        if (this.state.keys.e) {
+            this.emitters.push(new Emitter(
+                this.ctx,
+                random.between(10, this.state.width - 10),
+                random.between(10, this.state.height - 10),
+                10, // Frequency
+                200, // Particle speed
+                0,
+                Math.PI * 2,
+            ));
+        }
+
+        if (this.state.keys.r) {
+            this.forces.push(new RadialForce(
+                this.ctx,
+                random.between(10, this.state.width - 10),
+                random.between(10, this.state.height - 10),
+                160,
+            ));
+        }
+
+        if (this.state.keys.c) {
+            this.forces.push(new ConstantForce(
+                this.ctx,
+                Math.PI / 4,
+                10,
+                random.between(10, this.state.width - 10),
+                random.between(10, this.state.height - 10),
+            ));
+        }
     }
 
     setHoveredItem() {
