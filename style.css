@@ -2,6 +2,7 @@
     --gap-s: 5px;
     --gap: 10px;
     --minus-gap: calc(var(--gap) * -1);
+    --color: #333;
 }
 
 * {
@@ -19,7 +20,11 @@ body {
     background: silver;
     overflow: hidden;
     font: 16px/1 sans-serif;
-    color: #333;
+    color: var(--color);
+}
+
+h2 {
+    margin: 0;
 }
 
 #view {
@@ -39,8 +44,11 @@ body {
     transition: transform .2s ease;
 }
 
-.panel > h2 {
-    padding: 0 var(--gap);
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: var(--gap);
 }
 
 label {
@@ -72,8 +80,7 @@ label input {
     padding: 0 var(--gap);
 }
 
-.close {
-    display: block;
+button {
     background-color: grey;
     color: white;
     border: none;
@@ -81,6 +88,20 @@ label input {
     cursor: pointer;
 }
 
-.close:hover {
+button:hover {
     background-color: blue;
+}
+
+.delete {
+    color: var(--color);
+    background-color: transparent;
+}
+
+.delete:hover {
+    color: white;
+    background-color: red;
+}
+
+.close {
+    display: block;
 }

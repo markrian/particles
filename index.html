@@ -11,9 +11,12 @@
             height="450"
             >
     </canvas>
+
     <div id="constant-force-panel" class="panel panel-closed">
-        <h2>Constant force</h2>
-        <button type="button" class="delete">Remove</button>
+        <div class="panel-header">
+            <h2>Constant force</h2>
+            <button type="button" class="delete">Delete</button>
+        </div>
         <div class="panel-settings">
             <label>
                 <span class="label-text">Strength <span id="constant-force-strength-value">0</span></span>
@@ -26,9 +29,12 @@
         </div>
         <button class="close" type="button">Close</button>
     </div>
+
     <div id="radial-force-panel" class="panel panel-closed">
-        <h2>Radial force</h2>
-        <button type="button" class="delete">Remove</button>
+        <div class="panel-header">
+            <h2>Radial force</h2>
+            <button type="button" class="delete">Delete</button>
+        </div>
         <div class="panel-settings">
             <label>
                 <span class="label-text">Mass <span id="radial-force-mass-value">0</span></span>
@@ -37,9 +43,12 @@
         </div>
         <button class="close" type="button">Close</button>
     </div>
+
     <div id="emitter-panel" class="panel panel-closed">
-        <h2>Emitter</h2>
-        <button type="button" class="delete">Remove</button>
+        <div class="panel-header">
+            <h2>Emitter</h2>
+            <button type="button" class="delete">Delete</button>
+        </div>
         <div class="panel-settings">
             <label>
                 <span class="label-text">Frequency <span id="emitter-frequency-value">60</span></span>
@@ -60,6 +69,7 @@
         </div>
         <button class="close" type="button">Close</button>
     </div>
+
     <script src="js/main.js" type="module"></script>
 </body>
 </html>
