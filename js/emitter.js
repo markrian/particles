@@ -19,7 +19,7 @@ export default class Emitter {
         this.vx = 0;
         this.vy = 0;
         this.frequency = frequency;
-        this.msToNextEmission = 0;
+        this.secondsToNextEmission = 0;
         this.speed = speed;
         this.particles = [];
         this.startAngle = startAngle;
@@ -28,8 +28,8 @@ export default class Emitter {
         this.name = 'emitter';
     }
 
-    get msPerEmission() {
-        return 1000 / this.frequency;
+    get secondsPerEmission() {
+        return 1 / this.frequency;
     }
 
     remove() {
@@ -37,9 +37,8 @@ export default class Emitter {
     }
 
     update(dt, state) {
-        const delta_t = dt / 1000;
-        this.vx = (this.x - this.oldPos.x) / delta_t;
-        this.vy = (this.y - this.oldPos.y) / delta_t;
+        this.vx = (this.x - this.oldPos.x) / dt;
+        this.vy = (this.y - this.oldPos.y) / dt;
         this.oldPos.x = this.x;
         this.oldPos.y = this.y;
 
@@ -76,18 +75,18 @@ export default class Emitter {
     }
 
     emit(dt) {
-        this.msToNextEmission = Math.min(this.msPerEmission, this.msToNextEmission);
-        if (this.msPerEmission < dt) {
+        this.secondsToNextEmission = Math.min(this.secondsPerEmission, this.secondsToNextEmission);
+        if (this.secondsPerEmission < dt) {
             let elapsed = 0;
             while (elapsed < dt) {
                 this._emitOne();
-                elapsed += this.msPerEmission;
+                elapsed += this.secondsPerEmission;
             }
-        } else if (this.msToNextEmission <= 0) {
+        } else if (this.secondsToNextEmission <= 0) {
             this._emitOne();
-            this.msToNextEmission = this.msPerEmission;
+            this.secondsToNextEmission = this.secondsPerEmission;
         } else {
-            this.msToNextEmission -= dt;
+            this.secondsToNextEmission -= dt;
         }
     }
 

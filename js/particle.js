@@ -17,8 +17,8 @@ export default class Particle {
     }
 
     update(dt, state, indexInParent) {
-        this.x += this.vx * dt / 1000;
-        this.y += this.vy * dt / 1000;
+        this.x += this.vx * dt;
+        this.y += this.vy * dt;
         forces.call('resolve', this, dt);
 
         this.inView = pointInRect(

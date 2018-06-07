@@ -1,4 +1,5 @@
-const dt = 1000 / 60;
+// Time increment in seconds
+const dt = 1 / 60;
 
 class GameLoop {
     constructor() {

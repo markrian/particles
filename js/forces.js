@@ -77,7 +77,6 @@ export class ConstantForce {
         this.world.ctx.moveTo(-length / 2, 0);
         this.world.ctx.lineTo(length / 2, 0);
         this.world.ctx.translate(length / 2, 0);
-        // this.world.ctx.moveTo(0, 0);
         this.world.ctx.lineTo(-headSize, -headSize);
         this.world.ctx.moveTo(0, 0);
         this.world.ctx.lineTo(-headSize, headSize);
