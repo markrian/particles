@@ -1,4 +1,4 @@
-import Particle from './particle.js';
+import Particle, { ParticlePool } from './particle.js';
 import * as random from './random.js';
 import { drawDisc, drawReticle } from './canvas.js';
 
@@ -25,6 +25,7 @@ export default class Emitter {
         this.angle = angle;
         this.spread = spread;
         this.hovered = false;
+        this.particlePool = new Pool(20, Particle);
         this.name = 'emitter';
     }
 
@@ -111,7 +112,7 @@ export default class Emitter {
         const vx = this.speed * Math.cos(angle) + this.vx;
         const vy = this.speed * Math.sin(angle) + this.vy;
 
-        const particle = new Particle(
+        const particle = this.particlePool.get(
             this.world.ctx,
             this.particles,
             this.x,
@@ -120,6 +121,8 @@ export default class Emitter {
             vy,
         );
 
-        this.particles.push(particle);
+        if (this.particles.find(particle) === null) {
+            this.particles.push(particle);
+        }
     }
 }

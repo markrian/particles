@@ -51,3 +51,20 @@ export default class Particle {
         Object.assign(this, props);
     }
 }
+
+class Pool {
+    constructor(size, Constructor) {
+        this.size = size;
+        this.Constructor = Constructor;
+        this.pool = [];
+        this.cursor = 0;
+    }
+
+    get(...args) {
+        if (this.pool.length < this.size) {
+            this.cursor = this.pool.push(new this.Constructor(...args)) - 1;
+
+        }
+        this.Constructor.call(this.pool[this.cursor++], ...args);
+    }
+}
