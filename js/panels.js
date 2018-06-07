@@ -1,11 +1,18 @@
 import bindEvents from './bind-events.js';
 
 function sensiblePrecision(number) {
+    number = +number;
     if (Math.floor(number) === number) {
         return String(number);
     }
 
     return number.toFixed(1);
+}
+
+function radiansToDegrees(radians) {
+    radians = +radians;
+    const degrees = Math.round(radians / Math.PI * 180);
+    return `${sensiblePrecision(degrees)}°`;
 }
 
 export default class Panels {
@@ -33,9 +40,16 @@ class Panel {
     constructor() {
         this.el = document.getElementById(`${this.name}-panel`);
         this.item = null;
-        this.settings = this.constructor.settings.map(setting => ({ ...setting }));
+        this.initSettings();
         this.bindControls();
         this.stopEventPropagation();
+    }
+
+    initSettings() {
+        this.settings = this.constructor.settings.map(setting => ({
+            ...setting,
+            asReadableValue: setting.asReadableValue || sensiblePrecision,
+        }));
     }
 
     get name() {
@@ -57,7 +71,8 @@ class Panel {
                     return;
                 }
 
-                this.item[setting.attr] = setting.valueEl.textContent = Number(event.target.value);
+                this.item[setting.attr] = Number(event.target.value);
+                setting.valueEl.textContent = setting.asReadableValue(event.target.value);
             });
         }
 
@@ -70,7 +85,7 @@ class Panel {
         this.item = item;
         for (const setting of this.settings) {
             setting.inputEl.value = item[setting.attr];
-            setting.valueEl.textContent = sensiblePrecision(item[setting.attr]);
+            setting.valueEl.textContent = setting.asReadableValue(item[setting.attr]);
         }
     }
 
@@ -107,6 +122,7 @@ class ConstantForcePanel extends Panel {
 ConstantForcePanel.settings = [{
     name: 'angle',
     attr: 'angle',
+    asReadableValue: radiansToDegrees,
 }, {
     name: 'strength',
     attr: 'strength',
@@ -136,7 +152,9 @@ EmitterPanel.settings = [{
 }, {
     name: 'angle',
     attr: 'angle',
+    asReadableValue: radiansToDegrees,
 }, {
     name: 'spread',
     attr: 'spread',
+    asReadableValue: radiansToDegrees,
 }];
