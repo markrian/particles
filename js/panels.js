@@ -1,3 +1,13 @@
+import bindEvents from './bind-events.js';
+
+function sensiblePrecision(number) {
+    if (Math.floor(number) === number) {
+        return String(number);
+    }
+
+    return number.toFixed(1);
+}
+
 export default class Panels {
     constructor() {
         this.panels = {
@@ -58,7 +68,8 @@ class Panel {
         this.el.classList.toggle('panel-closed', false);
         this.item = item;
         for (const setting of this.settings) {
-            setting.valueEl.textContent = setting.inputEl.value = item[setting.attr];
+            setting.inputEl.value = item[setting.attr];
+            setting.valueEl.textContent = sensiblePrecision(item[setting.attr]);
         }
     }
 
