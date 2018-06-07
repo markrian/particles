@@ -3,6 +3,7 @@
  - Make things hoverable:
     / Emitters
     / RadialForces
+    / ConstantForce
  / Make things draggable:
     / Emitters
     / RadialForces
@@ -20,5 +21,14 @@
  - Improve drawings:
     / Arrow for ConstantForce
     - Radial gradiant for RadialForce sucks...
-    - ConstantForce arrow head isn't correct for all angles!
-
+    / ConstantForce arrow head isn't correct for all angles!
+ - Make things deletable:
+    - From panel:
+        / Emitters
+        / RadialForces
+        / ConstantForce
+    - from keyboard:
+        - Emitters
+        - RadialForces
+        - ConstantForce
+ - Change Emitter start/end angle to angle and spread
