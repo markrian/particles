@@ -2,7 +2,7 @@ import List from './list.js';
 import Emitter from './emitter.js';
 import forces, { RadialForce, ConstantForce } from './forces.js';
 import * as random from './random.js';
-import { near } from './collision.js';
+import { near } from './geometry.js';
 import Panels from './panels.js';
 
 export default class World {

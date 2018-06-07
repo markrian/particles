@@ -38,5 +38,5 @@
    start/end points?
  / Figure out why I'm inconsistently integrating over time (e.g.,  is it vx +=
    ax * dt, or vx += ax * dt / 1000?)
- - Rename collision.js to geometry.js
+ / Rename collision.js to geometry.js
  - Make items movable with arrow keys

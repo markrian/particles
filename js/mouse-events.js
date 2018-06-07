@@ -1,5 +1,5 @@
 import state from './state.js';
-import { near } from './collision.js';
+import { near } from './geometry.js';
 
 const DRAG_THRESHOLD = 5;
 

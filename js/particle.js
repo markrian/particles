@@ -1,5 +1,5 @@
 import forces from './forces.js';
-import { pointInRect } from './collision.js';
+import { pointInRect } from './geometry.js';
 import { drawDisc } from './canvas.js';
 import { warn } from './log.js';
 
