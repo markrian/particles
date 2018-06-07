@@ -14,10 +14,10 @@ export default new Forces();
 // dv/dt = F / m
 // dv = F*dt / m
 export class ConstantForce {
-    constructor(ctx, angle, strength) {
+    constructor(ctx, angle, strength, x = 40, y = 40) {
         this.ctx = ctx;
-        this.x = 40;
-        this.y = 40;
+        this.x = x;
+        this.y = y;
         this.angle = angle;
         this.strength = strength;
         this.name = 'constant-force';
