@@ -95,6 +95,7 @@ class Panel {
         }
 
         this.item.remove();
+        this.close();
     }
 }
 
