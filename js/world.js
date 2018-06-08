@@ -4,6 +4,7 @@ import forces, { RadialForce, ConstantForce } from './forces.js';
 import * as random from './random.js';
 import { near } from './geometry.js';
 import Panels from './panels.js';
+import { adjustTimeSpeed } from './game-loop.js';
 
 export default class World {
     constructor(state, ctx) {
@@ -25,6 +26,7 @@ export default class World {
     }
 
     update(dt) {
+        this.adjustTime();
         this.addItems();
         this.showHelp();
         this.setHoveredItem();
@@ -38,6 +40,16 @@ export default class World {
         this.ctx.clearRect(0, 0, this.state.width, this.state.height);
         this.forces.call('draw');
         this.emitters.call('draw');
+    }
+
+    adjustTime() {
+        if (this.state.keys.pressed['-']) {
+            adjustTimeSpeed(-1);
+        }
+
+        if (this.state.keys.pressed['+'] || this.state.keys.pressed['=']) {
+            adjustTimeSpeed(1);
+        }
     }
 
     addItems() {

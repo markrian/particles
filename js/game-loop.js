@@ -1,5 +1,5 @@
 // Time increment in seconds
-const dt = 1 / 60;
+let dt = 1 / 60;
 
 class GameLoop {
     constructor() {
@@ -25,6 +25,14 @@ class GameLoop {
 
     resume() {
         this.loop();
+    }
+}
+
+export function adjustTimeSpeed(factor) {
+    if (factor === 1) {
+        dt += 1/240;
+    } else {
+        dt -= 1/240;
     }
 }
 
