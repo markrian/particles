@@ -1,5 +1,11 @@
- - Make a particle pool, so that emitters don't just accrue more and more
+ / Make a particle pool, so that emitters don't just accrue more and more
    particles if they never go off-screen
+    - Make a global pool size limit - that is, a maximum number of entities
+      across all pools
+        - Add setSize method to pools, which allows them to grow/shrink
+          dynamically
+        - Add PoolManager class/singleton, which allows creating/destroying
+          pools of various sizes
  / Make things hoverable:
     / Emitters
     / RadialForces
