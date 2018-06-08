@@ -1,5 +1,5 @@
 import Particle from './particle.js';
-import Pool from './pool.js';
+import { poolManager } from './pool.js';
 import * as random from './random.js';
 import { drawDisc, drawReticle } from './canvas.js';
 
@@ -22,7 +22,7 @@ export default class Emitter {
         this.frequency = frequency;
         this.secondsToNextEmission = 0;
         this.speed = speed;
-        this.particles = new Pool(500, Particle);
+        this.particles = poolManager.createPool(Particle);
         this.angle = angle;
         this.spread = spread;
         this.hovered = false;
@@ -34,6 +34,7 @@ export default class Emitter {
     }
 
     remove() {
+        poolManager.destroyPool(this.particles);
         this.world.remove(this);
     }
 
