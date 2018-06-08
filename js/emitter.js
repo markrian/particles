@@ -1,4 +1,5 @@
 import Particle from './particle.js';
+import { poolManager } from './pool.js';
 import * as random from './random.js';
 import { drawDisc, drawReticle } from './canvas.js';
 
@@ -21,7 +22,7 @@ export default class Emitter {
         this.frequency = frequency;
         this.secondsToNextEmission = 0;
         this.speed = speed;
-        this.particles = [];
+        this.particles = poolManager.createPool(Particle);
         this.angle = angle;
         this.spread = spread;
         this.hovered = false;
@@ -33,6 +34,7 @@ export default class Emitter {
     }
 
     remove() {
+        poolManager.destroyPool(this.particles);
         this.world.remove(this);
     }
 
@@ -59,9 +61,8 @@ export default class Emitter {
 
         this.emit(dt);
 
-        let i = this.particles.length;
-        while (i-- > 0) {
-            this.particles[i].update(dt, state, i);
+        for (const particle of this.particles) {
+            particle.update(dt, state);
         }
 
         if (state.mouse.dragging && state.draggingItem === this) {
@@ -111,15 +112,12 @@ export default class Emitter {
         const vx = this.speed * Math.cos(angle) + this.vx;
         const vy = this.speed * Math.sin(angle) + this.vy;
 
-        const particle = new Particle(
+        this.particles.grow(
             this.world.ctx,
-            this.particles,
             this.x,
             this.y,
             vx,
             vy,
         );
-
-        this.particles.push(particle);
     }
 }
