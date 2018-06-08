@@ -4,9 +4,8 @@ import { drawDisc } from './canvas.js';
 import { warn } from './log.js';
 
 export default class Particle {
-    constructor(ctx, parent, x, y, vx, vy) {
+    constructor(ctx, x, y, vx, vy) {
         this.ctx = ctx;
-        this.parent = parent;
         this.x = x;
         this.y = y;
         this.vx = vx;
@@ -16,7 +15,7 @@ export default class Particle {
         this.inView = true;
     }
 
-    update(dt, state, indexInParent) {
+    update(dt, state) {
         this.x += this.vx * dt;
         this.y += this.vy * dt;
         forces.call('resolve', this, dt);
@@ -28,15 +27,10 @@ export default class Particle {
             state.width + 2 * this.radius,
             state.height + 2 * this.radius,
         );
-
-        if (!this.inView && this.parent !== undefined) {
-            this.parent.splice(indexInParent, 1);
-        }
     }
 
     draw() {
         if (!this.inView) {
-            warn('entered particle.draw, but did not in view!');
             return;
         }
 
@@ -45,26 +39,5 @@ export default class Particle {
 
     speed() {
         return Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-    }
-
-    setProps(props) {
-        Object.assign(this, props);
-    }
-}
-
-class Pool {
-    constructor(size, Constructor) {
-        this.size = size;
-        this.Constructor = Constructor;
-        this.pool = [];
-        this.cursor = 0;
-    }
-
-    get(...args) {
-        if (this.pool.length < this.size) {
-            this.cursor = this.pool.push(new this.Constructor(...args)) - 1;
-
-        }
-        this.Constructor.call(this.pool[this.cursor++], ...args);
     }
 }
