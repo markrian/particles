@@ -50,3 +50,5 @@
  - Add help panel/window:
     - Open via button
     / Open via '?'
+ - Make items keep their speed
+ - Make items bounce off sides of viewport
