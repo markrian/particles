@@ -43,7 +43,7 @@ export default class Emitter {
         this.selected = state.selectedItem === this;
 
         if (this.selected) {
-            if (state.keys.pressed.d) {
+            if (state.keys.pressed.Delete || state.keys.pressed.d) {
                 this.remove();
                 return;
             }
