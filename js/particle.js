@@ -15,7 +15,7 @@ export default class Particle {
         particle.vx = vx;
         particle.vy = vy;
         particle.radius = 1.5;
-        particle.mass = this.radius * this.radius;
+        particle.mass = particle.radius * particle.radius;
         particle.inView = true;
     }
 
