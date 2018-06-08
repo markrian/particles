@@ -22,7 +22,7 @@ export default class Pool {
 
         this.cursor = (this.cursor + 1) % this.pool.length;
         const item = this.pool[this.cursor];
-        this.Constructor.call(item, ...args);
+        this.Constructor.init(item, ...args);
         return item;
     }
 }

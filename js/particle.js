@@ -5,14 +5,18 @@ import { warn } from './log.js';
 
 export default class Particle {
     constructor(ctx, x, y, vx, vy) {
-        this.ctx = ctx;
-        this.x = x;
-        this.y = y;
-        this.vx = vx;
-        this.vy = vy;
-        this.radius = 1.5;
-        this.mass = this.radius * this.radius;
-        this.inView = true;
+        this.constructor.init(this, ...arguments);
+    }
+
+    static init(particle, ctx, x, y, vx, vy) {
+        particle.ctx = ctx;
+        particle.x = x;
+        particle.y = y;
+        particle.vx = vx;
+        particle.vy = vy;
+        particle.radius = 1.5;
+        particle.mass = this.radius * this.radius;
+        particle.inView = true;
     }
 
     update(dt, state) {
