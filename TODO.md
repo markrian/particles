@@ -59,3 +59,6 @@
  - Make items keep their speed
  - Make items bounce off sides of viewport
  / Make time speed configurable with +/-
+
+ - Investigate why sometimes deleting an item doesn't close the panel
+ - Invert mass definition - positive mass should mean attraction
