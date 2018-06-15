@@ -18,7 +18,6 @@ html, body {
 }
 
 body {
-    background: silver;
     overflow: hidden;
     font: 16px/1 sans-serif;
     color: var(--color);
@@ -26,6 +25,13 @@ body {
 
 h2 {
     margin: 0;
+}
+
+kbd {
+    background-color: white;
+    border: 1px solid silver;
+    border-radius: 3px;
+    padding: 0 .5rem;
 }
 
 #view {
