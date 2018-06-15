@@ -86,7 +86,7 @@ export default class World {
     }
 
     showHelp() {
-        if (this.state.keys.pressed['?']) {
+        if (this.state.keys.pressed['?'] || this.state.keys.pressed['h']) {
             document.querySelector('.help').classList.toggle('help-closed');
         }
     }
