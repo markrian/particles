@@ -141,6 +141,11 @@ export default class World {
     }
 
     remove(item) {
+        if (this.state.selectedItem === item) {
+            this.state.selectedItem = null;
+            this.panels.close();
+        }
+
         this.emitters.remove(item);
         this.forces.remove(item);
     }
