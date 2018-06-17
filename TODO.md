@@ -61,4 +61,4 @@
  / Make time speed configurable with +/-
 
  / Investigate why sometimes deleting an item doesn't close the panel
- - Invert mass definition - positive mass should mean attraction
+ / Invert mass definition - positive mass should mean attraction
