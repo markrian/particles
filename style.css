@@ -34,6 +34,10 @@ kbd {
     padding: 0 .5rem;
 }
 
+dd {
+    margin: .5rem 0 1rem 0;
+}
+
 #view {
     background: white;
     display: block;
@@ -122,6 +126,7 @@ button:hover {
     background-color: var(--panel-bg);
     transition: transform .2s ease;
     padding: var(--gap);
+    overflow-y: auto;
 }
 
 .help-closed {
