@@ -25,7 +25,7 @@ function init() {
                 }
             }
 
-            state.keys.old = { ...state.keys.live };
+            state.keys.old = Object.assign({}, state.keys.live);
 
             world.update(dt);
         },

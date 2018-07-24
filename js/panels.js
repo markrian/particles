@@ -46,10 +46,10 @@ class Panel {
     }
 
     initSettings() {
-        this.settings = this.constructor.settings.map(setting => ({
-            ...setting,
-            asReadableValue: setting.asReadableValue || sensiblePrecision,
-        }));
+        this.settings = this.constructor.settings.map(setting => Object.assign({},
+            setting,
+            { asReadableValue: setting.asReadableValue || sensiblePrecision },
+        ));
     }
 
     get name() {
