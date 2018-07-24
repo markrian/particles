@@ -133,3 +133,18 @@ button:hover {
     transform: translateX(-100%);
 }
 
+#browser-not-supported {
+    display: none;
+}
+
+.error-header {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    padding: .5em 1em;
+    background-color: #c23;
+    color: white;
+}

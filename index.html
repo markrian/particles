@@ -4,8 +4,14 @@
 <meta charset="utf-8" />
 <title>Particles</title>
 <link rel="stylesheet" type="text/css" href="style.css"/>
+<script nomodule src="js/nomodule.js"></script>
 </head>
 <body>
+    <div id="browser-not-supported">
+        <h1>Oh dear!</h1>
+        <p>This browser is too old-fashioned to view this page properly! Try Firefox 60+, Chrome 61+, Edge 16+, Opera 48+ or Safari 11+.</p>
+    </div>
+
     <canvas id="view"
             width="800"
             height="450"
@@ -73,6 +79,10 @@
     <div class="help">
         <h2>What is this?</h2>
         <p>A fun little particle emitter demo, with radial and constant forces.</p>
+        <p>
+            Click on emitters, radial or constant forces to select them, and have
+            a play with their properties. Move them around by clicking and dragging.
+        </p>
         <h2>Keyboard controls</h2>
         <dl>
             <dt><kbd>?</kbd> or <kbd>h</kbd></dt>
