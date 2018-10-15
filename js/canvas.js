@@ -24,7 +24,7 @@ export function drawReticle(context, x, y) {
         context.rect(-size + thickness, -size, thickness, thickness);
         context.rect(-size, -size + thickness, thickness, thickness);
 
-        context.rotate(Math.PI/2);
+        context.rotate(Math.PI / 2);
     }
 
     context.fillStyle = style;

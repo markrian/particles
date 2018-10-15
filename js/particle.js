@@ -1,11 +1,10 @@
 import forces from './forces.js';
 import { pointInRect } from './geometry.js';
 import { drawDisc } from './canvas.js';
-import { warn } from './log.js';
 
 export default class Particle {
     constructor(ctx, x, y, vx, vy) {
-        this.constructor.init(this, ...arguments);
+        this.constructor.init(this, ctx, x, y, vx, vy);
     }
 
     static init(particle, ctx, x, y, vx, vy) {

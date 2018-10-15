@@ -22,20 +22,28 @@
         "error",
         "always-multiline"
       ],
+      "curly": [
+        "error",
+        "multi-line"
+      ],
+      "dot-notation": "off",
       "eqeqeq": [
         "error",
         "smart"
       ],
+      "generator-star-spacing": "off",
       "import/extensions": "off",
       "max-params": "off",
       "no-eq-null": "off",
       "no-mixed-operators": "off",
       "no-multi-assign": "off",
       "no-shadow": "error",
+      "no-warning-comments": "warn",
       "object-curly-spacing": [
         "error",
         "always"
-      ]
+      ],
+      "yield-star-spacing": "off"
     },
     "space": 4
   }

@@ -1,7 +1,7 @@
 import bindEvents from './bind-events.js';
 
 function sensiblePrecision(number) {
-    number = +number;
+    number = Number(number);
     if (Math.floor(number) === number) {
         return String(number);
     }
@@ -10,30 +10,9 @@ function sensiblePrecision(number) {
 }
 
 function radiansToDegrees(radians) {
-    radians = +radians;
+    radians = Number(radians);
     const degrees = Math.round(radians / Math.PI * 180);
     return `${sensiblePrecision(degrees)}°`;
-}
-
-export default class Panels {
-    constructor() {
-        this.panels = {
-            'constant-force': new ConstantForcePanel(),
-            'radial-force': new RadialForcePanel(),
-            'emitter': new EmitterPanel(),
-        }
-    }
-
-    open(item) {
-        this.close();
-        this.panels[item.name].open(item);
-    }
-
-    close() {
-        for (const name in this.panels) {
-            this.panels[name].close();
-        }
-    }
 }
 
 class Panel {
@@ -158,3 +137,24 @@ EmitterPanel.settings = [{
     attr: 'spread',
     asReadableValue: radiansToDegrees,
 }];
+
+export default class Panels {
+    constructor() {
+        this.panels = {
+            'constant-force': new ConstantForcePanel(),
+            'radial-force': new RadialForcePanel(),
+            emitter: new EmitterPanel(),
+        };
+    }
+
+    open(item) {
+        this.close();
+        this.panels[item.name].open(item);
+    }
+
+    close() {
+        for (const name of Object.keys(this.panels)) {
+            this.panels[name].close();
+        }
+    }
+}

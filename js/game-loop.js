@@ -30,9 +30,9 @@ class GameLoop {
 
 export function adjustTimeSpeed(factor) {
     if (factor === 1) {
-        dt += 1/240;
+        dt += 1 / 240;
     } else {
-        dt -= 1/240;
+        dt -= 1 / 240;
     }
 }
 
