@@ -6,6 +6,8 @@
   "private": true,
   "license": "ISC",
   "scripts": {
+    "prebuild": "npm test",
+    "build": "rm -rf dist && mkdir dist && cp -r *.html js *.css dist",
     "test": "xo --reporter=codeframe"
   },
   "devDependencies": {
