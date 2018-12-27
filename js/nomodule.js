@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function () {
     const el = document.getElementById('browser-not-supported').cloneNode(true);
     el.className = 'error-header';
 
