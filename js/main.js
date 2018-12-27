@@ -1,6 +1,6 @@
 import bindEvents from './bind-events.js';
-import keyboardEvents from './keyboard-events.js';
-import mouseEvents from './mouse-events.js';
+import keyboardEvents, { update as keysUpdate } from './keyboard-events.js';
+import mouseEvents, { update as mouseUpdate } from './mouse-events.js';
 import windowEvents from './window-events.js';
 import World from './world.js';
 import { ctx } from './canvas.js';
@@ -15,18 +15,12 @@ function init() {
     windowEvents.resize();
 
     const world = new World(state, ctx);
+    window.world = world;
 
     loop.start(
         dt => {
-            state.keys.pressed = {};
-            for (const key in state.keys.live) {
-                if (state.keys.live[key]) {
-                    state.keys.pressed[key] = !state.keys.old[key];
-                }
-            }
-
-            state.keys.old = Object.assign({}, state.keys.live);
-
+            keysUpdate(dt, state);
+            mouseUpdate(dt, state);
             world.update(dt);
         },
         () => world.draw(),

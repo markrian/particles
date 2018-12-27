@@ -62,8 +62,8 @@
 
  / Investigate why sometimes deleting an item doesn't close the panel
  / Invert mass definition - positive mass should mean attraction
- - Fix selection bug:
-   - Click on emitter, leave mouse hovered over it
-   - Press arrow keys to move emitter
-   - Observe that when emitter leaves mouse cursor, selection ends and movement
+ / Fix selection bug:
+   / Click on emitter, leave mouse hovered over it
+   / Press arrow keys to move emitter
+   / Observe that when emitter leaves mouse cursor, selection ends and movement
      stops

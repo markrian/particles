@@ -12,6 +12,7 @@ export default {
     mouse: {
         x: 0,
         y: 0,
+        oldClick: false,
         click: false,
         down: false,
         downStart: {
