@@ -2,6 +2,7 @@ import Particle from './particle.js';
 import { poolManager } from './pool.js';
 import * as random from './random.js';
 import { drawDisc, drawReticle } from './canvas.js';
+import Moveable from './moveable.js';
 
 export default class Emitter {
     constructor(
@@ -42,17 +43,7 @@ export default class Emitter {
         this.hovered = state.hoveredItem === this;
         this.selected = state.selectedItem === this;
 
-        if (this.selected) {
-            if (state.keys.pressed.Delete || state.keys.pressed.d) {
-                this.remove();
-                return;
-            }
-
-            if (state.keys.live.ArrowUp) this.y--;
-            if (state.keys.live.ArrowDown) this.y++;
-            if (state.keys.live.ArrowLeft) this.x--;
-            if (state.keys.live.ArrowRight) this.x++;
-        }
+        Moveable.update(this, state);
 
         this.vx = (this.x - this.oldPos.x) / dt;
         this.vy = (this.y - this.oldPos.y) / dt;
@@ -63,11 +54,6 @@ export default class Emitter {
 
         for (const particle of this.particles) {
             particle.update(dt, state);
-        }
-
-        if (state.mouse.dragging && state.draggingItem === this) {
-            this.x = state.mouse.x;
-            this.y = state.mouse.y;
         }
     }
 

@@ -1,5 +1,6 @@
 import List from './list.js';
 import { drawReticle } from './canvas.js';
+import Moveable from './moveable.js';
 
 const MASS_FACTOR = 50000;
 
@@ -50,22 +51,7 @@ export class ConstantForce {
         this.hovered = state.hoveredItem === this;
         this.selected = state.selectedItem === this;
 
-        if (this.selected) {
-            if (state.keys.pressed.Delete || state.keys.pressed.d) {
-                this.remove();
-                return;
-            }
-
-            if (state.keys.live.ArrowUp) this.y--;
-            if (state.keys.live.ArrowDown) this.y++;
-            if (state.keys.live.ArrowLeft) this.x--;
-            if (state.keys.live.ArrowRight) this.x++;
-        }
-
-        if (state.mouse.dragging && state.draggingItem === this) {
-            this.x = state.mouse.x;
-            this.y = state.mouse.y;
-        }
+        Moveable.update(this, state);
     }
 
     resolve(particle, dt) {
@@ -120,22 +106,7 @@ export class RadialForce {
         this.hovered = state.hoveredItem === this;
         this.selected = state.selectedItem === this;
 
-        if (this.selected) {
-            if (state.keys.pressed.Delete || state.keys.pressed.d) {
-                this.remove();
-                return;
-            }
-
-            if (state.keys.live.ArrowUp) this.y--;
-            if (state.keys.live.ArrowDown) this.y++;
-            if (state.keys.live.ArrowLeft) this.x--;
-            if (state.keys.live.ArrowRight) this.x++;
-        }
-
-        if (state.mouse.dragging && state.draggingItem === this) {
-            this.x = state.mouse.x;
-            this.y = state.mouse.y;
-        }
+        Moveable.update(this, state);
     }
 
     resolve(particle, dt) {
