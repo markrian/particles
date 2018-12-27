@@ -28,8 +28,8 @@
     / Arrow for ConstantForce
     - Radial gradiant for RadialForce sucks...
     / ConstantForce arrow head isn't correct for all angles!
- - Make things deletable:
-    - From panel:
+ / Make things deletable:
+    / From panel:
         / Emitters
         / RadialForces
         / ConstantForce
@@ -62,3 +62,8 @@
 
  / Investigate why sometimes deleting an item doesn't close the panel
  / Invert mass definition - positive mass should mean attraction
+ - Fix selection bug:
+   - Click on emitter, leave mouse hovered over it
+   - Press arrow keys to move emitter
+   - Observe that when emitter leaves mouse cursor, selection ends and movement
+     stops
