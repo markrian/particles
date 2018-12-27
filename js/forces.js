@@ -1,5 +1,4 @@
 import List from './list.js';
-import { drawReticle } from './canvas.js';
 import Moveable from './moveable.js';
 
 const MASS_FACTOR = 50000;
