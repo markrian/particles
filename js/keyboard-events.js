@@ -20,7 +20,7 @@ export default {
     },
 };
 
-export function update(dt, state) {
+export function update() {
     state.keys.pressed = {};
     for (const key in state.keys.live) {
         if (state.keys.live[key]) {

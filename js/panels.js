@@ -1,5 +1,5 @@
 import bindEvents from './bind-events.js';
-import { onTransitionEnd, rAF } from './animation.js';
+import { onTransitionEnd, doubleRAF } from './animation.js';
 
 function sensiblePrecision(number) {
     number = Number(number);
@@ -16,6 +16,11 @@ function radiansToDegrees(radians) {
     return `${sensiblePrecision(degrees)}°`;
 }
 
+const OPEN = 0;
+const OPENING = 1;
+const CLOSED = 2;
+const CLOSING = 3;
+
 class Panel {
     constructor() {
         this.el = document.getElementById(`${this.name}-panel`);
@@ -23,6 +28,7 @@ class Panel {
         this.initSettings();
         this.bindControls();
         this.stopEventPropagation();
+        this.state = this.el.classList.contains('hide') ? CLOSED : OPEN;
     }
 
     initSettings() {
@@ -60,20 +66,54 @@ class Panel {
         this.el.querySelector('button.close').addEventListener('click', () => this.close());
     }
 
-    open(item) {
-        this.el.classList.remove('hide');
-        rAF(() => this.el.classList.remove('panel-closed'));
+    async open(item) {
+        if (this.item === item) {
+            return;
+        }
+
         this.item = item;
         for (const setting of this.settings) {
             setting.inputEl.value = item[setting.attr];
             setting.valueEl.textContent = setting.asReadableValue(item[setting.attr]);
         }
+
+        switch (this.state) {
+            case CLOSED:
+                this.state = OPENING;
+                this.el.classList.remove('hide');
+                doubleRAF(() => this.el.classList.remove('panel-closed'));
+                await onTransitionEnd(this.el);
+                if (this.state === OPENING) {
+                    this.state = OPEN;
+                }
+                return;
+            case CLOSING:
+                await onTransitionEnd(this.el);
+                if (this.state === CLOSED) {
+                    return this.open(item);
+                }
+                return;
+            default:
+                return;
+        }
     }
 
-    close() {
-        this.el.classList.add('panel-closed');
-        onTransitionEnd(this.el, () => this.el.classList.add('hide'));
-        this.item = null;
+    async close() {
+        switch (this.state) {
+            case OPEN:
+            case OPENING:
+                this.state = CLOSING;
+                this.el.classList.add('panel-closed');
+                await onTransitionEnd(this.el);
+                if (this.state === CLOSING) {
+                    this.el.classList.add('hide');
+                    this.state = CLOSED;
+                    this.item = null;
+                }
+                return;
+            default:
+                return;
+        }
     }
 
     stopEventPropagation() {
@@ -148,16 +188,19 @@ export default class Panels {
             'radial-force': new RadialForcePanel(),
             emitter: new EmitterPanel(),
         };
+        this.openPanel = null;
     }
 
-    open(item) {
-        this.close();
-        this.panels[item.name].open(item);
+    async open(item) {
+        await this.close();
+        this.openPanel = this.panels[item.name];
+        return this.openPanel.open(item);
     }
 
-    close() {
-        for (const name of Object.keys(this.panels)) {
-            this.panels[name].close();
+    async close() {
+        if (this.openPanel !== null) {
+            await this.openPanel.close();
+            this.openPanel = null;
         }
     }
 }

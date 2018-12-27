@@ -46,7 +46,7 @@ export default {
     },
 };
 
-export function update(dt, state) {
+export function update() {
     if (state.mouse.oldClick && state.mouse.click) {
         state.mouse.click = false;
     }
