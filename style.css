@@ -148,3 +148,7 @@ button:hover {
     background-color: #c23;
     color: white;
 }
+
+.hide {
+    display: none;
+}

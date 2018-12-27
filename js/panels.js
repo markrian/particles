@@ -1,4 +1,5 @@
 import bindEvents from './bind-events.js';
+import { onTransitionEnd, rAF } from './animation.js';
 
 function sensiblePrecision(number) {
     number = Number(number);
@@ -60,7 +61,8 @@ class Panel {
     }
 
     open(item) {
-        this.el.classList.toggle('panel-closed', false);
+        this.el.classList.remove('hide');
+        rAF(() => this.el.classList.remove('panel-closed'));
         this.item = item;
         for (const setting of this.settings) {
             setting.inputEl.value = item[setting.attr];
@@ -69,7 +71,8 @@ class Panel {
     }
 
     close() {
-        this.el.classList.toggle('panel-closed', true);
+        this.el.classList.add('panel-closed');
+        onTransitionEnd(this.el, () => this.el.classList.add('hide'));
         this.item = null;
     }
 
