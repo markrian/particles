@@ -1,7 +1,7 @@
 import Particle from './particle.js';
 import { poolManager } from './pool.js';
 import * as random from './random.js';
-import { drawDisc, drawReticle } from './canvas.js';
+import { drawDisc } from './canvas.js';
 import Moveable from './moveable.js';
 
 export default class Emitter {
@@ -28,6 +28,7 @@ export default class Emitter {
         this.spread = spread;
         this.hovered = false;
         this.name = 'emitter';
+        this.moveable = new Moveable(this);
     }
 
     get secondsPerEmission() {
@@ -40,15 +41,12 @@ export default class Emitter {
     }
 
     update(dt, state) {
-        this.hovered = state.hoveredItem === this;
-        this.selected = state.selectedItem === this;
-
-        Moveable.update(this, state);
-
         this.vx = (this.x - this.oldPos.x) / dt;
         this.vy = (this.y - this.oldPos.y) / dt;
         this.oldPos.x = this.x;
         this.oldPos.y = this.y;
+
+        this.moveable.update(dt, state);
 
         this.emit(dt);
 
@@ -58,18 +56,12 @@ export default class Emitter {
     }
 
     draw() {
-        if (this.hovered) {
-            drawDisc(this.world.ctx, this.x, this.y, 15, 'rgba(12,230,240,.3)');
-        }
+        this.moveable.draw();
 
         drawDisc(this.world.ctx, this.x, this.y, 2.5, 'blue');
 
         for (const particle of this.particles) {
             particle.draw();
-        }
-
-        if (this.selected) {
-            drawReticle(this.world.ctx, this.x, this.y);
         }
     }
 

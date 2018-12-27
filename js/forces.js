@@ -21,6 +21,7 @@ export class ConstantForce {
         this.angle = angle;
         this.strength = strength;
         this.name = 'constant-force';
+        this.moveable = new Moveable(this);
     }
 
     get angle() {
@@ -48,10 +49,7 @@ export class ConstantForce {
     }
 
     update(dt, state) {
-        this.hovered = state.hoveredItem === this;
-        this.selected = state.selectedItem === this;
-
-        Moveable.update(this, state);
+        this.moveable.update(dt, state);
     }
 
     resolve(particle, dt) {
@@ -83,9 +81,7 @@ export class ConstantForce {
 
         this.world.ctx.restore();
 
-        if (this.selected) {
-            drawReticle(this.world.ctx, this.x, this.y);
-        }
+        this.moveable.draw();
     }
 }
 
@@ -96,6 +92,7 @@ export class RadialForce {
         this.y = y;
         this.mass = mass;
         this.name = 'radial-force';
+        this.moveable = new Moveable(this);
     }
 
     remove() {
@@ -103,10 +100,7 @@ export class RadialForce {
     }
 
     update(dt, state) {
-        this.hovered = state.hoveredItem === this;
-        this.selected = state.selectedItem === this;
-
-        Moveable.update(this, state);
+        this.moveable.update(dt, state);
     }
 
     resolve(particle, dt) {
@@ -146,8 +140,6 @@ export class RadialForce {
         this.world.ctx.fillStyle = radialGradient;
         this.world.ctx.fillRect(this.x - absMass, this.y - absMass, absMass * 2, absMass * 2);
 
-        if (this.selected) {
-            drawReticle(this.world.ctx, this.x, this.y);
-        }
+        this.moveable.draw();
     }
 }
