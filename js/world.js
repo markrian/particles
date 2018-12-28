@@ -20,8 +20,8 @@ export default class World {
             state.height / 2,
             10, // Frequency
             200, // Particle speed
-            -Math.PI / 4,
-            Math.PI / 4,
+            0, // Angle
+            Math.PI / 2, // Spread
         ));
     }
 
