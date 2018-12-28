@@ -86,15 +86,15 @@ class Panel {
                 if (this.state === OPENING) {
                     this.state = OPEN;
                 }
-                return;
+                break;
             case CLOSING:
                 await onTransitionEnd(this.el);
                 if (this.state === CLOSED) {
                     return this.open(item);
                 }
-                return;
+                break;
             default:
-                return;
+                break;
         }
     }
 
@@ -110,9 +110,9 @@ class Panel {
                     this.state = CLOSED;
                     this.item = null;
                 }
-                return;
+                break;
             default:
-                return;
+                break;
         }
     }
 

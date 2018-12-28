@@ -11,7 +11,7 @@ export async function onTransitionEnd(el) {
             resolve();
         }, 1000);
 
-        const listener = function (event) {
+        const listener = function () {
             el.removeEventListener(transitionend, listener);
             resolve();
             clearTimeout(timeout);
