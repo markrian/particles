@@ -1,7 +1,7 @@
 const transitionend = 'transitionend';
 
 export async function onTransitionEnd(el) {
-    if (!('on' + transitionend in el)) {
+    if (el.style.transition === undefined) {
         return;
     }
 
