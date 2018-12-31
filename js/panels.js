@@ -230,13 +230,23 @@ export default class Panels {
         });
     }
 
-    open(item) {
-        this.close();
-        this.state.transitionTo('opening', item);
+    async open(item) {
+        await this.close();
+        if (this.state.transitionTo('opening')) {
+
+        }
     }
 
-    close() {
-        this.state.transitionTo('closing');
+    async close() {
+        if (this.state.transitionTo('closing')) {
+            // This is what I want to say, but this makes me (vaguely) realise
+            // what the problem with all of this is. We could successfully
+            // transition to the closing state, and kick off this waiting
+            // promise, but before that resolves, a new request to open again
+            // could have come in, which means *this* promise will hang until
+            // THAT opened panel closes. Argh!
+            return this.state.waitForState('closed');
+        }
     }
 }
 
