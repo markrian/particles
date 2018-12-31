@@ -198,7 +198,7 @@ export default class Panels {
                 async closing() {
                     const panel = panels.openPanel;
                     panels.openPanel = null;
-                    await panel.close()
+                    await panel.close();
                     this.transitionTo('closed');
                 },
             },
@@ -220,30 +220,23 @@ export default class Panels {
                 },
             },
             closing: {
+                closed: noop,
                 async opening(item) {
                     panels.openPanel = panels.panels[item.name];
                     await panels.openPanel.open(item);
                     this.transitionTo('open');
                 },
-                closed: noop,
             },
         });
     }
 
-    async open(item) {
-        await this.close();
+    open(item) {
+        this.close();
+        this.state.transitionTo('opening', item);
     }
 
-    async close() {
-        switch (this.state) {
-            case OPEN:
-                this.state = 
-                this.openPanel.close();
-        }
-        if (this.openPanel !== null) {
-            await this.openPanel.close();
-            this.openPanel = null;
-        }
+    close() {
+        this.state.transitionTo('closing');
     }
 }
 
