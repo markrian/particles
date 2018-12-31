@@ -1,6 +1,8 @@
 import bindEvents from './bind-events.js';
 import { onTransitionEnd, doubleRAF } from './animation.js';
 
+const noop = () => {};
+
 function sensiblePrecision(number) {
     number = Number(number);
     if (Math.floor(number) === number) {
@@ -189,18 +191,109 @@ export default class Panels {
             emitter: new EmitterPanel(),
         };
         this.openPanel = null;
+        const panels = this;
+
+        this.state = new FSM({
+            open: {
+                async closing() {
+                    const panel = panels.openPanel;
+                    panels.openPanel = null;
+                    await panel.close()
+                    this.transitionTo('closed');
+                },
+            },
+            opening: {
+                open: noop,
+                async closing() {
+                    const panel = panels.openPanel;
+                    panels.openPanel = null;
+                    await panel.close()
+                    this.transitionTo('closed');
+                },
+            },
+            closed: {
+                initial: true,
+                async opening(item) {
+                    panels.openPanel = panels.panels[item.name];
+                    await panels.openPanel.open(item);
+                    this.transitionTo('open');
+                },
+            },
+            closing: {
+                async opening(item) {
+                    panels.openPanel = panels.panels[item.name];
+                    await panels.openPanel.open(item);
+                    this.transitionTo('open');
+                },
+                closed: noop,
+            },
+        });
     }
 
     async open(item) {
         await this.close();
-        this.openPanel = this.panels[item.name];
-        return this.openPanel.open(item);
     }
 
     async close() {
+        switch (this.state) {
+            case OPEN:
+                this.state = 
+                this.openPanel.close();
+        }
         if (this.openPanel !== null) {
             await this.openPanel.close();
             this.openPanel = null;
         }
+    }
+}
+
+class FSM {
+    constructor(states) {
+        this.validKeys = 'onEnter onExit initial'.split(' ');
+        this.validateStates(states);
+        this.states = states;
+        for (const state in states) {
+            if (states[state].initial) {
+                this.state = state;
+            }
+            if (!('onEnter' in states[state])) states[state].onEnter = noop;
+            if (!('onExit' in states[state])) states[state].onExit = noop;
+        }
+
+        if (this.state === undefined) {
+            throw new Error('no initial state set');
+        }
+    }
+
+    validateStates(states) {
+        const allStates = Object.keys(states);
+        const possibleSubKeys = [...allStates, ...this.validKeys];
+        for (const state of allStates) {
+            const subkeys = Object.keys(states[state]);
+            const invalid = subkeys.filter(subkey => !possibleSubKeys.includes(subkey));
+            if (invalid.length > 0) {
+                throw new Error(`Invalid subkeys ${invalid} in ${state}`)
+            }
+        }
+    }
+
+    transitionTo(destState, ...args) {
+        const transitionableStates = this.transitionableStates(this.state);
+        if (!transitionableStates.includes(destState)) {
+            // Is throwing an error better? Is it the call's responsibility to
+            // know whether this is possible? Probably not. Hence just return.
+            return;
+        }
+        console.log(`${this.state} -> ${destState}`);
+        const method = this.states[this.state][destState];
+        this.states[this.state].onExit();
+        this.state = destState;
+        this.states[destState].onEnter(...args);
+        method.call(this, ...args);
+    }
+
+    transitionableStates(state) {
+        return Object.keys(this.states[state])
+            .filter(key => key !== 'onEnter' && key !== 'onExit');
     }
 }
